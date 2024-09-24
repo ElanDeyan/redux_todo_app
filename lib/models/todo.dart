@@ -1,10 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 /// {@template todo_model}
 /// [Todo] with three properties: [title], [description], and
 /// [isCompleted].
 /// {@endtemplate}
-final class Todo {
+final class Todo extends Equatable {
   /// {@macro todo_model}
-  Todo({
+  const Todo({
     required this.title,
     required this.description,
     required this.isCompleted,
@@ -22,4 +24,7 @@ final class Todo {
   /// Negatable version of [isCompleted].
   /// Checks if a [Todo] is not completed.
   bool get isNotCompleted => !isCompleted;
+
+  @override
+  List<Object?> get props => [title, description, isCompleted];
 }
