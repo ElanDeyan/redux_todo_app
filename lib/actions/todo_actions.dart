@@ -12,10 +12,15 @@ sealed class TodoActions {
 /// {@endtemplate}
 final class AddTask extends TodoActions {
   /// {@macro add_task_action}
-  AddTask({required this.todo});
+  const AddTask({required this.todo});
 
   /// A [Todo] to be added
   final Todo todo;
+
+  @override
+  String toString() {
+    return 'Add task: $todo';
+  }
 }
 
 /// {@template toggle_task_completion}
@@ -23,10 +28,15 @@ final class AddTask extends TodoActions {
 /// {@endtemplate}
 final class ToggleTaskCompletion extends TodoActions {
   /// {@macro toggle_task_completion}
-  ToggleTaskCompletion({required this.todo});
+  const ToggleTaskCompletion({required this.todo});
 
   /// A [Todo] where its [Todo.isCompleted] will be negate.
   final Todo todo;
+
+  @override
+  String toString() {
+    return 'Toggling the isCompleted property of $todo';
+  }
 }
 
 /// {@template remove_task_action}
@@ -34,8 +44,13 @@ final class ToggleTaskCompletion extends TodoActions {
 /// {@endtemplate}
 final class RemoveTask extends TodoActions {
   /// {@macro remove_task_action}
-  RemoveTask({required this.todo});
+  const RemoveTask({required this.todo});
 
   /// A [Todo] to be removed.
   final Todo todo;
+
+  @override
+  String toString() {
+    return 'Remove this todo: $todo';
+  }
 }
