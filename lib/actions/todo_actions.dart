@@ -35,7 +35,7 @@ final class ToggleTaskCompletion extends TodoActions {
 
   @override
   String toString() {
-    return 'Toggling the isCompleted property of $todo';
+    return 'Toggle the isCompleted property of $todo';
   }
 }
 
