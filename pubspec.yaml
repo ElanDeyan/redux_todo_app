@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   drift: ^2.20.2
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_redux: ^0.10.0
