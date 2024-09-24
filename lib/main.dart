@@ -4,7 +4,11 @@ void main() {
   runApp(const MyApp());
 }
 
+/// {@template my_app}
+/// Entry point for the application
+/// {@endtemplate}
 class MyApp extends StatelessWidget {
+  /// {@macro my_app}
   const MyApp({super.key});
 
   // This widget is the root of your application.
