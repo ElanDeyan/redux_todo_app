@@ -1,6 +1,5 @@
+import 'package:redux_todo_app/app_state.dart';
 import 'package:redux_todo_app/models/models.dart';
-import 'package:redux_todo_app/store/app_store.dart';
-import 'package:redux_todo_app/store/store.dart';
 
 /// Superclass for app actions
 sealed class TodoActions {
@@ -8,7 +7,7 @@ sealed class TodoActions {
 }
 
 /// {@template add_task_action}
-/// Action for add a [Todo] to the [AppStore]
+/// Action for add a [Todo] to the [AppState]
 /// {@endtemplate}
 final class AddTask extends TodoActions {
   /// {@macro add_task_action}
@@ -40,7 +39,7 @@ final class ToggleTaskCompletion extends TodoActions {
 }
 
 /// {@template remove_task_action}
-/// Action for remove [Todo] from the [AppStore]
+/// Action for remove [Todo] from the [AppState]
 /// {@endtemplate}
 final class RemoveTask extends TodoActions {
   /// {@macro remove_task_action}

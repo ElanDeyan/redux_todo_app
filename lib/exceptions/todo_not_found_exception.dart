@@ -1,9 +1,8 @@
+import 'package:redux_todo_app/app_state.dart';
 import 'package:redux_todo_app/models/models.dart';
-import 'package:redux_todo_app/store/app_store.dart';
-import 'package:redux_todo_app/store/store.dart';
 
 /// {@template todo_not_found_exception}
-/// An [Exception] class for missing [Todo]s in [AppStore]
+/// An [Exception] class for missing [Todo]s in [AppState]
 /// {@endtemplate}
 final class TodoNotFoundException implements Exception {
   /// {@macro todo_not_found_exception}
