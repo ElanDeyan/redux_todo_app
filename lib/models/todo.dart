@@ -9,7 +9,7 @@ final class Todo extends Equatable {
   const Todo({
     required this.title,
     required this.description,
-    required this.isCompleted,
+    this.isCompleted = false,
   });
 
   /// Title of [Todo]
