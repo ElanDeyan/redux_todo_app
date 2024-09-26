@@ -9,4 +9,9 @@ final class AppState {
 
   /// A list containing all [Todo]'s of the app.
   final List<Todo> todos;
+
+  @override
+  String toString() {
+    return 'AppState(todos: $todos)';
+  }
 }
