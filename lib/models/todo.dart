@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:redux_todo_app/db/app_database.dart';
 
 /// {@template todo_model}
 /// [Todo] with three properties: [title], [description], and
@@ -8,15 +9,20 @@ final class Todo extends Equatable {
   /// {@macro todo_model}
   const Todo({
     required this.title,
-    required this.description,
+    this.id,
+    this.description,
     this.isCompleted = false,
   });
+
+  /// Task's id. Can be [Null] when creating, since after added to [AppDatabase]
+  /// he'll receive an id.
+  final int? id;
 
   /// Title of [Todo]
   final String title;
 
   /// A description about this [Todo]
-  final String description;
+  final String? description;
 
   /// Marks a [Todo] as completed or not.
   final bool isCompleted;
