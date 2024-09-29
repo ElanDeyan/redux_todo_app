@@ -42,8 +42,17 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, TodoTable> {
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("is_completed" IN (0, 1))'),
       defaultValue: const Constant(false));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
   @override
-  List<GeneratedColumn> get $columns => [id, title, description, isCompleted];
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, title, description, isCompleted, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -75,6 +84,10 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, TodoTable> {
           isCompleted.isAcceptableOrUnknown(
               data['is_completed']!, _isCompletedMeta));
     }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    }
     return context;
   }
 
@@ -92,6 +105,8 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, TodoTable> {
           .read(DriftSqlType.string, data['${effectivePrefix}description']),
       isCompleted: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_completed'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
     );
   }
 
@@ -102,15 +117,27 @@ class $TodosTable extends Todos with TableInfo<$TodosTable, TodoTable> {
 }
 
 class TodoTable extends DataClass implements Insertable<TodoTable> {
+  /// [Todo]'s id. Can be null when adding and the [AppDatabase] will
+  /// give it.
   final int? id;
+
+  /// [Todo]'s title.
   final String title;
+
+  /// [Todo]'s description
   final String? description;
+
+  /// [Todo]'s completion.
   final bool isCompleted;
+
+  /// [Todo]'s created date time.
+  final DateTime createdAt;
   const TodoTable(
       {this.id,
       required this.title,
       this.description,
-      required this.isCompleted});
+      required this.isCompleted,
+      required this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -122,6 +149,7 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
       map['description'] = Variable<String>(description);
     }
     map['is_completed'] = Variable<bool>(isCompleted);
+    map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
 
@@ -133,6 +161,7 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
           ? const Value.absent()
           : Value(description),
       isCompleted: Value(isCompleted),
+      createdAt: Value(createdAt),
     );
   }
 
@@ -144,6 +173,7 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
       title: serializer.fromJson<String>(json['title']),
       description: serializer.fromJson<String?>(json['description']),
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
   @override
@@ -154,6 +184,7 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
       'title': serializer.toJson<String>(title),
       'description': serializer.toJson<String?>(description),
       'isCompleted': serializer.toJson<bool>(isCompleted),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
 
@@ -161,12 +192,14 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
           {Value<int?> id = const Value.absent(),
           String? title,
           Value<String?> description = const Value.absent(),
-          bool? isCompleted}) =>
+          bool? isCompleted,
+          DateTime? createdAt}) =>
       TodoTable(
         id: id.present ? id.value : this.id,
         title: title ?? this.title,
         description: description.present ? description.value : this.description,
         isCompleted: isCompleted ?? this.isCompleted,
+        createdAt: createdAt ?? this.createdAt,
       );
   TodoTable copyWithCompanion(TodosCompanion data) {
     return TodoTable(
@@ -176,6 +209,7 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
           data.description.present ? data.description.value : this.description,
       isCompleted:
           data.isCompleted.present ? data.isCompleted.value : this.isCompleted,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
 
@@ -185,13 +219,15 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('description: $description, ')
-          ..write('isCompleted: $isCompleted')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, title, description, isCompleted);
+  int get hashCode =>
+      Object.hash(id, title, description, isCompleted, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -199,7 +235,8 @@ class TodoTable extends DataClass implements Insertable<TodoTable> {
           other.id == this.id &&
           other.title == this.title &&
           other.description == this.description &&
-          other.isCompleted == this.isCompleted);
+          other.isCompleted == this.isCompleted &&
+          other.createdAt == this.createdAt);
 }
 
 class TodosCompanion extends UpdateCompanion<TodoTable> {
@@ -207,29 +244,34 @@ class TodosCompanion extends UpdateCompanion<TodoTable> {
   final Value<String> title;
   final Value<String?> description;
   final Value<bool> isCompleted;
+  final Value<DateTime> createdAt;
   const TodosCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.description = const Value.absent(),
     this.isCompleted = const Value.absent(),
+    this.createdAt = const Value.absent(),
   });
   TodosCompanion.insert({
     this.id = const Value.absent(),
     required String title,
     this.description = const Value.absent(),
     this.isCompleted = const Value.absent(),
+    this.createdAt = const Value.absent(),
   }) : title = Value(title);
   static Insertable<TodoTable> custom({
     Expression<int>? id,
     Expression<String>? title,
     Expression<String>? description,
     Expression<bool>? isCompleted,
+    Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (title != null) 'title': title,
       if (description != null) 'description': description,
       if (isCompleted != null) 'is_completed': isCompleted,
+      if (createdAt != null) 'created_at': createdAt,
     });
   }
 
@@ -237,12 +279,14 @@ class TodosCompanion extends UpdateCompanion<TodoTable> {
       {Value<int?>? id,
       Value<String>? title,
       Value<String?>? description,
-      Value<bool>? isCompleted}) {
+      Value<bool>? isCompleted,
+      Value<DateTime>? createdAt}) {
     return TodosCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
       isCompleted: isCompleted ?? this.isCompleted,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -261,6 +305,9 @@ class TodosCompanion extends UpdateCompanion<TodoTable> {
     if (isCompleted.present) {
       map['is_completed'] = Variable<bool>(isCompleted.value);
     }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
     return map;
   }
 
@@ -270,7 +317,8 @@ class TodosCompanion extends UpdateCompanion<TodoTable> {
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('description: $description, ')
-          ..write('isCompleted: $isCompleted')
+          ..write('isCompleted: $isCompleted, ')
+          ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
@@ -292,12 +340,14 @@ typedef $$TodosTableCreateCompanionBuilder = TodosCompanion Function({
   required String title,
   Value<String?> description,
   Value<bool> isCompleted,
+  Value<DateTime> createdAt,
 });
 typedef $$TodosTableUpdateCompanionBuilder = TodosCompanion Function({
   Value<int?> id,
   Value<String> title,
   Value<String?> description,
   Value<bool> isCompleted,
+  Value<DateTime> createdAt,
 });
 
 class $$TodosTableFilterComposer
@@ -322,6 +372,11 @@ class $$TodosTableFilterComposer
       column: $state.table.isCompleted,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get createdAt => $state.composableBuilder(
+      column: $state.table.createdAt,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
 class $$TodosTableOrderingComposer
@@ -344,6 +399,11 @@ class $$TodosTableOrderingComposer
 
   ColumnOrderings<bool> get isCompleted => $state.composableBuilder(
       column: $state.table.isCompleted,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get createdAt => $state.composableBuilder(
+      column: $state.table.createdAt,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -372,24 +432,28 @@ class $$TodosTableTableManager extends RootTableManager<
             Value<String> title = const Value.absent(),
             Value<String?> description = const Value.absent(),
             Value<bool> isCompleted = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
           }) =>
               TodosCompanion(
             id: id,
             title: title,
             description: description,
             isCompleted: isCompleted,
+            createdAt: createdAt,
           ),
           createCompanionCallback: ({
             Value<int?> id = const Value.absent(),
             required String title,
             Value<String?> description = const Value.absent(),
             Value<bool> isCompleted = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
           }) =>
               TodosCompanion.insert(
             id: id,
             title: title,
             description: description,
             isCompleted: isCompleted,
+            createdAt: createdAt,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

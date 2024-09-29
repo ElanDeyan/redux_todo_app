@@ -17,4 +17,7 @@ class Todos extends Table {
 
   /// [Todo]'s completion.
   BoolColumn get isCompleted => boolean().withDefault(const Constant(false))();
+
+  /// [Todo]'s created date time.
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }

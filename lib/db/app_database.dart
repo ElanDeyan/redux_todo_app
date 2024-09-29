@@ -16,7 +16,17 @@ final class AppDatabase extends _$AppDatabase implements TodosRepository {
   /// {@macro app_database}
   AppDatabase() : super(impl.connect());
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) => m.createAll(),
+        onUpgrade: (m, from, to) async {
+          if (to == 2) {
+            await m.addColumn(todos, todos.createdAt);
+          }
+        },
+      );
 
   @override
   Future<List<Todo>> get all => select(todos)
