@@ -118,45 +118,40 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  const sample = Todo(title: &#39;A&#39;, description: &#39;Description&#39;);
-
   return Scaffold(
     appBar: AppBar(
       leading: const Icon(Icons.science_outlined),
       title: const Text(&#39;Redux todo app&#39;),
     ),
-    body: ListView(
-      children: [
-        const Text(&#39;Here are your tasks:&#39;),
-        StoreConnector&lt;AppState, List&lt;Todo&gt;&gt;(
-          converter: (store) =&gt; store.state.todos,
-          builder: (context, value) =&gt; Text(value.toString()),
-        ),
-        StoreConnector&lt;AppState, VoidCallback&gt;(
-          converter: (store) =&gt; () =&gt; store
-              .dispatch(ToggleTaskCompletion(todo: store.state.todos.last)),
-          builder: (context, callback) =&gt; ElevatedButton(
-            onPressed: callback,
-            child: const Text(&#39;Toggle last task completion&#39;),
+    body: CustomScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      slivers: [
+        SliverToBoxAdapter(
+          child: Center(
+            child: Text(
+              &#39;What to do now?&#39;,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
           ),
         ),
-        StoreConnector&lt;AppState, VoidCallback&gt;(
-          converter: (store) =&gt;
-              () =&gt; store.dispatch(RemoveTask(todo: store.state.todos.last)),
-          builder: (context, callback) =&gt; ElevatedButton(
-            onPressed: callback,
-            child: const Text(&#39;Remove last&#39;),
+        const SliverToBoxAdapter(
+          child: SizedBox(
+            height: 10,
+          ),
+        ),
+        StoreConnector&lt;AppState, List&lt;Todo&gt;&gt;(
+          converter: (store) =&gt; store.state.todos,
+          builder: (context, todos) =&gt; SliverList.builder(
+            itemCount: todos.length,
+            itemBuilder: (context, index) =&gt; Padding(
+              padding: const EdgeInsets.all(8),
+              child: TodoTile(todo: todos[index]),
+            ),
           ),
         ),
       ],
     ),
-    floatingActionButton: StoreBuilder&lt;AppState&gt;(
-      builder: (context, store) =&gt; FloatingActionButton.extended(
-        onPressed: () =&gt; store.dispatch(const AddTask(todo: sample)),
-        label: const Text(&#39;Add task&#39;),
-        icon: const Icon(Icons.add_outlined),
-      ),
-    ),
+    floatingActionButton: const AddTodoFloatingActionButton(),
   );
 }</code></pre>
 </section>
