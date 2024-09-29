@@ -1,8 +1,8 @@
 import 'package:drift/drift.dart';
 import 'package:redux_todo_app/db/connection/connection.dart' as impl;
 import 'package:redux_todo_app/db/todo_table.dart';
-import 'package:redux_todo_app/helper/extensions/todo_model.dart';
-import 'package:redux_todo_app/helper/extensions/todo_table.dart';
+import 'package:redux_todo_app/helper/extensions/todo_model_extension.dart';
+import 'package:redux_todo_app/helper/extensions/todo_table_extension.dart';
 import 'package:redux_todo_app/models/models.dart';
 import 'package:redux_todo_app/repository/todos_repository.dart';
 
@@ -20,7 +20,7 @@ final class AppDatabase extends _$AppDatabase implements TodosRepository {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
-    onCreate: (m) => m.createAll(),
+        onCreate: (m) => m.createAll(),
         onUpgrade: (m, from, to) async {
           if (to == 2) {
             await m.addColumn(todos, todos.createdAt);
@@ -31,7 +31,7 @@ final class AppDatabase extends _$AppDatabase implements TodosRepository {
   @override
   Future<List<Todo>> get all => select(todos)
       .get()
-      .then((rows) => rows.map(TodoModel.fromTodoTable).toList());
+      .then((rows) => rows.map(TodoModelExtension.fromTodoTable).toList());
 
   @override
   Future<Todo?> add(Todo todo) => into(todos)
@@ -43,7 +43,9 @@ final class AppDatabase extends _$AppDatabase implements TodosRepository {
         ),
         mode: InsertMode.insertOrRollback,
       )
-      .then((row) => row != null ? TodoModel.fromTodoTable(row) : null);
+      .then(
+        (row) => row != null ? TodoModelExtension.fromTodoTable(row) : null,
+      );
 
   @override
   Future<Todo?> toggleTodoCompletion(Todo todo) async {
@@ -60,7 +62,7 @@ final class AppDatabase extends _$AppDatabase implements TodosRepository {
         .singleOrNull;
 
     if (updatedRow != null) {
-      return TodoModel.fromTodoTable(updatedRow);
+      return TodoModelExtension.fromTodoTable(updatedRow);
     }
 
     return null;
@@ -73,5 +75,7 @@ final class AppDatabase extends _$AppDatabase implements TodosRepository {
           id: Value(todo.id),
         ),
       )
-      .then((row) => row != null ? TodoModel.fromTodoTable(row) : null);
+      .then(
+        (row) => row != null ? TodoModelExtension.fromTodoTable(row) : null,
+      );
 }
