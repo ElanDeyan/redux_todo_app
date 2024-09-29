@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_todo_app/app_state.dart';
+import 'package:redux_todo_app/helper/extensions/iterable_extension.dart';
 import 'package:redux_todo_app/models/models.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile.dart';
 
@@ -63,6 +64,7 @@ class _TodosListViewState extends State<TodosListView> {
         SliverToBoxAdapter(
           child: Wrap(
             alignment: WrapAlignment.spaceAround,
+            runSpacing: 5,
             children: [
               for (final filter in TodoFilters.values)
                 ChoiceChip(
@@ -94,12 +96,24 @@ class _TodosListViewState extends State<TodosListView> {
   }
 
   List<Todo> _filterTodos(Store<AppState> store) {
-    final todos = store.state.todos;
+    final todos = [...store.state.todos];
     return switch (_filter) {
-      TodoFilters.all => todos,
-      TodoFilters.completed => todos.where((todo) => todo.isCompleted).toList(),
-      TodoFilters.pending =>
-        todos.where((todo) => todo.isNotCompleted).toList(),
+      TodoFilters.all => [
+          ...todos.where((todo) => todo.isNotCompleted).toSortedList(
+                (a, b) => a.createdAt.compareTo(b.createdAt) * -1,
+              ),
+          ...todos.where((todo) => todo.isCompleted).toSortedList(
+                (a, b) => a.createdAt.compareTo(b.createdAt) * -1,
+              ),
+        ],
+      TodoFilters.completed => todos.where((todo) => todo.isCompleted).toList()
+        ..sort(
+          (a, b) => a.createdAt.compareTo(b.createdAt) * -1,
+        ),
+      TodoFilters.pending => todos.where((todo) => todo.isNotCompleted).toList()
+        ..sort(
+          (a, b) => a.createdAt.compareTo(b.createdAt) * -1,
+        ),
     };
   }
 }
