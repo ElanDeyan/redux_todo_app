@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_todo_app/app_state.dart';
-import 'package:redux_todo_app/db/app_database.dart';
-import 'package:redux_todo_app/helper/extensions/todo_model.dart';
 import 'package:redux_todo_app/middlewares/middlewares.dart';
 import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/reducers/reducers.dart';
+import 'package:redux_todo_app/repository/todos_repository.dart';
 import 'package:redux_todo_app/service_locator.dart';
 
 /// {@template app_store_provider}
@@ -31,9 +30,7 @@ class _AppStoreProviderState extends State<AppStoreProvider> {
   @override
   void initState() {
     super.initState();
-    _initialItems = serviceLocator<AppDatabase>()
-        .all
-        .then((rows) => rows.map(TodoModel.fromTodoTable).toList());
+    _initialItems = serviceLocator<TodosRepository>().all;
   }
 
   @override
