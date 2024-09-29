@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:redux_todo_app/db/app_database.dart';
 
 /// {@template todo_model}
@@ -9,10 +10,11 @@ final class Todo extends Equatable {
   /// {@macro todo_model}
   const Todo({
     required this.title,
+    required DateTime createdAtTime,
     this.id,
     this.description,
     this.isCompleted = false,
-  });
+  }) : _createdAt = createdAtTime;
 
   /// Task's id. Can be [Null] when creating, since after added to [AppDatabase]
   /// he'll receive an id.
@@ -27,12 +29,17 @@ final class Todo extends Equatable {
   /// Marks a [Todo] as completed or not.
   final bool isCompleted;
 
+  final DateTime _createdAt;
+
+  /// [DateTime] of [Todo]'s creation.
+  DateTime get createdAt => _createdAt;
+
   /// Negatable version of [isCompleted].
   /// Checks if a [Todo] is not completed.
   bool get isNotCompleted => !isCompleted;
 
   @override
-  List<Object?> get props => [id, title, description, isCompleted];
+  List<Object?> get props => [id, title, description, isCompleted, createdAt];
 
   /// Helper method to create a copy of actual [Todo] with specific changes.
   Todo copyWith({
@@ -40,12 +47,30 @@ final class Todo extends Equatable {
     String? title,
     String? description,
     bool? isCompleted,
+    DateTime? createdAt,
   }) {
     return Todo(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
       isCompleted: isCompleted ?? this.isCompleted,
+      createdAtTime: createdAt ?? this.createdAt,
+    );
+  }
+
+  List<String> get _propsNames =>
+      ['Id', 'Title', 'Description', 'Is completed?', 'Created at'];
+
+  DataTable get asDataTable {
+    return DataTable(
+      columns: [
+        for (final prop in _propsNames) DataColumn(label: Text(prop)),
+      ],
+      rows: [
+        DataRow(
+          cells: [for (final prop in props) DataCell(Text(prop.toString()))],
+        ),
+      ],
     );
   }
 }
