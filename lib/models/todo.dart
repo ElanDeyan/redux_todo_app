@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:redux_todo_app/db/app_database.dart';
 
 /// {@template todo_model}
@@ -55,22 +54,6 @@ final class Todo extends Equatable {
       description: description ?? this.description,
       isCompleted: isCompleted ?? this.isCompleted,
       createdAtTime: createdAt ?? this.createdAt,
-    );
-  }
-
-  List<String> get _propsNames =>
-      ['Id', 'Title', 'Description', 'Is completed?', 'Created at'];
-
-  DataTable get asDataTable {
-    return DataTable(
-      columns: [
-        for (final prop in _propsNames) DataColumn(label: Text(prop)),
-      ],
-      rows: [
-        DataRow(
-          cells: [for (final prop in props) DataCell(Text(prop.toString()))],
-        ),
-      ],
     );
   }
 }
