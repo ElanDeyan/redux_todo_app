@@ -15,11 +15,11 @@ Future<void> databaseWriter(
   final database = serviceLocator<TodosRepository>();
 
   switch (action) {
-    case AddTask(:final todo):
+    case AddTodoAction(:final todo):
       await _onAddTask(database, todo, nextDispatcher);
-    case ToggleTaskCompletion(:final todo):
+    case ToggleTodoCompletionAction(:final todo):
       await _onToggleTaskCompletion(database, todo, nextDispatcher);
-    case RemoveTask(:final todo):
+    case RemoveTodoAction(:final todo):
       await _onRemoveTask(database, todo, nextDispatcher);
   }
 }
@@ -32,7 +32,7 @@ Future<void> _onRemoveTask(
   final result = await database.removeTodo(todo);
   if (result != null) {
     nextDispatcher(
-      RemoveTask(
+      RemoveTodoAction(
         todo: result,
       ),
     );
@@ -47,7 +47,7 @@ Future<void> _onToggleTaskCompletion(
   final result = await database.toggleTodoCompletion(todo);
   if (result != null) {
     nextDispatcher(
-      ToggleTaskCompletion(
+      ToggleTodoCompletionAction(
         todo: result,
       ),
     );
@@ -62,7 +62,7 @@ Future<void> _onAddTask(
   final result = await database.add(todo);
   if (result != null) {
     nextDispatcher(
-      AddTask(
+      AddTodoAction(
         todo: result,
       ),
     );

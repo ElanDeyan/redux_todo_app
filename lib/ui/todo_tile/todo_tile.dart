@@ -31,7 +31,7 @@ class TodoTile extends StatelessWidget {
           children: [
             StoreConnector<AppState, VoidCallback>(
               converter: (store) =>
-                  () => store.dispatch(ToggleTaskCompletion(todo: todo)),
+                  () => store.dispatch(ToggleTodoCompletionAction(todo: todo)),
               builder: (context, callback) => Checkbox(
                 value: todo.isCompleted,
                 onChanged: (_) => callback(),
@@ -47,7 +47,7 @@ class TodoTile extends StatelessWidget {
                 icon: const Icon(Icons.delete_forever_outlined),
               ),
               converter: (store) =>
-                  () => store.dispatch(RemoveTask(todo: todo)),
+                  () => store.dispatch(RemoveTodoAction(todo: todo)),
             ),
           ],
         ),

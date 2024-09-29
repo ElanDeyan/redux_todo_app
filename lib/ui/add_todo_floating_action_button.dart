@@ -7,7 +7,7 @@ import 'package:redux_todo_app/ui/add_todo_form/add_todo_form.dart';
 
 /// {@template add_todo_floating_action_button}
 /// A [FloatingActionButton] wrapped with a [StoreConnector] to dispatch a
-/// [AddTask] action, when the user not dismisses the bottom sheet or the [Form]
+/// [AddTodoAction] action, when the user not dismisses the bottom sheet or the [Form]
 /// is valid.
 /// {@endtemplate}
 class AddTodoFloatingActionButton extends StatelessWidget {
@@ -19,7 +19,7 @@ class AddTodoFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, void Function(Todo todo)>(
-      converter: (store) => (todo) => store.dispatch(AddTask(todo: todo)),
+      converter: (store) => (todo) => store.dispatch(AddTodoAction(todo: todo)),
       builder: (context, addTodoCallback) => FloatingActionButton.extended(
         onPressed: () => _onPressed(context, addTodoCallback),
         label: const Text('Add todo'),

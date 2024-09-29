@@ -9,9 +9,9 @@ sealed class TodoActions {
 /// {@template add_task_action}
 /// Action for add a [Todo] to the [AppState]
 /// {@endtemplate}
-final class AddTask extends TodoActions {
+final class AddTodoAction extends TodoActions {
   /// {@macro add_task_action}
-  const AddTask({required this.todo});
+  const AddTodoAction({required this.todo});
 
   /// A [Todo] to be added
   final Todo todo;
@@ -25,9 +25,9 @@ final class AddTask extends TodoActions {
 /// {@template toggle_task_completion}
 /// Action for toggle [Todo.isCompleted] property.
 /// {@endtemplate}
-final class ToggleTaskCompletion extends TodoActions {
+final class ToggleTodoCompletionAction extends TodoActions {
   /// {@macro toggle_task_completion}
-  const ToggleTaskCompletion({required this.todo});
+  const ToggleTodoCompletionAction({required this.todo});
 
   /// A [Todo] where its [Todo.isCompleted] will be negate.
   final Todo todo;
@@ -41,9 +41,9 @@ final class ToggleTaskCompletion extends TodoActions {
 /// {@template remove_task_action}
 /// Action for remove [Todo] from the [AppState]
 /// {@endtemplate}
-final class RemoveTask extends TodoActions {
+final class RemoveTodoAction extends TodoActions {
   /// {@macro remove_task_action}
-  const RemoveTask({required this.todo});
+  const RemoveTodoAction({required this.todo});
 
   /// A [Todo] to be removed.
   final Todo todo;

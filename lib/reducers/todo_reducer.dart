@@ -7,10 +7,10 @@ import 'package:redux_todo_app/models/models.dart';
 /// to generates a new State.
 AppState todoReducer(AppState previousState, TodoActions action) =>
     switch (action) {
-      AddTask(:final todo) => _addTaskHandler(previousState, todo),
-      ToggleTaskCompletion(:final todo) =>
+      AddTodoAction(:final todo) => _addTaskHandler(previousState, todo),
+      ToggleTodoCompletionAction(:final todo) =>
         _toggleTaskCompletionHandler(previousState, todo),
-      RemoveTask(:final todo) => _removeTaskHandler(previousState, todo),
+      RemoveTodoAction(:final todo) => _removeTaskHandler(previousState, todo),
     };
 
 AppState _addTaskHandler(AppState previousState, Todo todo) =>
