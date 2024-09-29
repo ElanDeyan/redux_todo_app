@@ -3,7 +3,8 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_todo_app/actions/actions.dart';
 import 'package:redux_todo_app/app_state.dart';
 import 'package:redux_todo_app/models/models.dart';
-import 'package:redux_todo_app/ui/todo_tile/todo_tile_data_box.dart';
+import 'package:redux_todo_app/ui/todo_tile/todo_tile_description.dart';
+import 'package:redux_todo_app/ui/todo_tile/todo_tile_title.dart';
 
 /// {@template todo_tile}
 /// [StatelessWidget] for the [Todo], which can toggle [Todo.isCompleted],
@@ -18,38 +19,39 @@ class TodoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
+    return StoreBuilder<AppState>(
+      builder: (context, store) => InkWell(
+        onLongPress: () => _displayTodoData(context),
+        child: CheckboxListTile(
+          value: todo.isCompleted,
+          onChanged: (_) =>
+              store.dispatch(ToggleTodoCompletionAction(todo: todo)),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          tileColor: Theme.of(context).colorScheme.primaryContainer,
+          secondary: IconButton(
+            onPressed: () => _onDeleteTodo(
+              context,
+              () => store.dispatch(RemoveTodoAction(todo: todo)),
+            ),
+            icon: const Icon(Icons.delete),
+          ),
+          title: TodoTileTitle(todo: todo),
+          subtitle: TodoTileDescription(todo: todo),
+        ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            StoreConnector<AppState, VoidCallback>(
-              converter: (store) =>
-                  () => store.dispatch(ToggleTodoCompletionAction(todo: todo)),
-              builder: (context, callback) => Checkbox(
-                value: todo.isCompleted,
-                onChanged: (_) => callback(),
-              ),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Expanded(child: TodoTileDataBox(todo: todo)),
-            StoreConnector<AppState, VoidCallback>(
-              builder: (context, callback) => IconButton(
-                onPressed: () => _onDeleteTodo(context, callback),
-                icon: const Icon(Icons.delete_forever_outlined),
-              ),
-              converter: (store) =>
-                  () => store.dispatch(RemoveTodoAction(todo: todo)),
-            ),
-          ],
+    );
+  }
+
+  Future<void> _displayTodoData(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(Icons.info_outline),
+        content: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: todo.asDataTable,
         ),
       ),
     );
