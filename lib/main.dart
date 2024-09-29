@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:redux_todo_app/db/app_database.dart';
 import 'package:redux_todo_app/providers/app_store_provider.dart';
+import 'package:redux_todo_app/repository/todos_repository.dart';
+import 'package:redux_todo_app/service_locator.dart';
 import 'package:redux_todo_app/ui/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  serviceLocator.registerLazySingleton<TodosRepository>(
+    AppDatabase.new,
+  );
+
   runApp(const ReduxTodoApp());
 }
 
