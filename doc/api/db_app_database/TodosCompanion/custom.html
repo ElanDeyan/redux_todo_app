@@ -68,6 +68,7 @@
 <li><span class="parameter" id="custom-param-title"><span class="type-annotation"><a href="https://pub.dev/documentation/drift/2.20.3/drift/Expression-class.html">Expression</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">title</span>, </span></li>
 <li><span class="parameter" id="custom-param-description"><span class="type-annotation"><a href="https://pub.dev/documentation/drift/2.20.3/drift/Expression-class.html">Expression</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">description</span>, </span></li>
 <li><span class="parameter" id="custom-param-isCompleted"><span class="type-annotation"><a href="https://pub.dev/documentation/drift/2.20.3/drift/Expression-class.html">Expression</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>&gt;</span>?</span> <span class="parameter-name">isCompleted</span>, </span></li>
+<li><span class="parameter" id="custom-param-createdAt"><span class="type-annotation"><a href="https://pub.dev/documentation/drift/2.20.3/drift/Expression-class.html">Expression</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>&gt;</span>?</span> <span class="parameter-name">createdAt</span>, </span></li>
 </ol>})
 
       
@@ -84,12 +85,14 @@
   Expression&lt;String&gt;? title,
   Expression&lt;String&gt;? description,
   Expression&lt;bool&gt;? isCompleted,
+  Expression&lt;DateTime&gt;? createdAt,
 }) {
   return RawValuesInsertable({
     if (id != null) &#39;id&#39;: id,
     if (title != null) &#39;title&#39;: title,
     if (description != null) &#39;description&#39;: description,
     if (isCompleted != null) &#39;is_completed&#39;: isCompleted,
+    if (createdAt != null) &#39;created_at&#39;: createdAt,
   });
 }</code></pre>
 </section>

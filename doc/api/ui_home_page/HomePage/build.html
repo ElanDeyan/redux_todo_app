@@ -123,34 +123,7 @@ Widget build(BuildContext context) {
       leading: const Icon(Icons.science_outlined),
       title: const Text(&#39;Redux todo app&#39;),
     ),
-    body: CustomScrollView(
-      physics: const AlwaysScrollableScrollPhysics(),
-      slivers: [
-        SliverToBoxAdapter(
-          child: Center(
-            child: Text(
-              &#39;What to do now?&#39;,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-          ),
-        ),
-        const SliverToBoxAdapter(
-          child: SizedBox(
-            height: 10,
-          ),
-        ),
-        StoreConnector&lt;AppState, List&lt;Todo&gt;&gt;(
-          converter: (store) =&gt; store.state.todos,
-          builder: (context, todos) =&gt; SliverList.builder(
-            itemCount: todos.length,
-            itemBuilder: (context, index) =&gt; Padding(
-              padding: const EdgeInsets.all(8),
-              child: TodoTile(todo: todos[index]),
-            ),
-          ),
-        ),
-      ],
-    ),
+    body: const TodosListView(),
     floatingActionButton: const AddTodoFloatingActionButton(),
   );
 }</code></pre>

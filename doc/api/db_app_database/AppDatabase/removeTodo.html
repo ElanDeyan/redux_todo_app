@@ -91,7 +91,9 @@ Future&lt;Todo?&gt; removeTodo(Todo todo) =&gt; delete(todos)
         id: Value(todo.id),
       ),
     )
-    .then((row) =&gt; row != null ? TodoModel.fromTodoTable(row) : null);</code></pre>
+    .then(
+      (row) =&gt; row != null ? TodoModelExtension.fromTodoTable(row) : null,
+    );</code></pre>
 </section>
 
 

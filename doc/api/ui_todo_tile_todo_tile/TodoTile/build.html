@@ -118,38 +118,26 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  return DecoratedBox(
-    decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      borderRadius: const BorderRadius.all(Radius.circular(5)),
-    ),
-    child: Padding(
-      padding: const EdgeInsets.all(8),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          StoreConnector&lt;AppState, VoidCallback&gt;(
-            converter: (store) =&gt;
-                () =&gt; store.dispatch(ToggleTaskCompletion(todo: todo)),
-            builder: (context, callback) =&gt; Checkbox(
-              value: todo.isCompleted,
-              onChanged: (_) =&gt; callback(),
-            ),
+  return StoreBuilder&lt;AppState&gt;(
+    builder: (context, store) =&gt; InkWell(
+      onLongPress: () =&gt; _displayTodoData(context),
+      child: CheckboxListTile(
+        value: todo.isCompleted,
+        onChanged: (_) =&gt;
+            store.dispatch(ToggleTodoCompletionAction(todo: todo)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+        ),
+        tileColor: Theme.of(context).colorScheme.primaryContainer,
+        secondary: IconButton(
+          onPressed: () =&gt; _onDeleteTodo(
+            context,
+            () =&gt; store.dispatch(RemoveTodoAction(todo: todo)),
           ),
-          const SizedBox(
-            width: 5,
-          ),
-          Expanded(child: TodoTileDataBox(todo: todo)),
-          StoreConnector&lt;AppState, VoidCallback&gt;(
-            builder: (context, callback) =&gt; IconButton(
-              onPressed: () =&gt; _onDeleteTodo(context, callback),
-              icon: const Icon(Icons.delete_forever_outlined),
-            ),
-            converter: (store) =&gt;
-                () =&gt; store.dispatch(RemoveTask(todo: todo)),
-          ),
-        ],
+          icon: const Icon(Icons.delete),
+        ),
+        title: TodoTileTitle(todo: todo),
+        subtitle: TodoTileDescription(todo: todo),
       ),
     ),
   );

@@ -86,24 +86,28 @@
           Value&lt;String&gt; title = const Value.absent(),
           Value&lt;String?&gt; description = const Value.absent(),
           Value&lt;bool&gt; isCompleted = const Value.absent(),
+          Value&lt;DateTime&gt; createdAt = const Value.absent(),
         }) =&gt;
             TodosCompanion(
           id: id,
           title: title,
           description: description,
           isCompleted: isCompleted,
+          createdAt: createdAt,
         ),
         createCompanionCallback: ({
           Value&lt;int?&gt; id = const Value.absent(),
           required String title,
           Value&lt;String?&gt; description = const Value.absent(),
           Value&lt;bool&gt; isCompleted = const Value.absent(),
+          Value&lt;DateTime&gt; createdAt = const Value.absent(),
         }) =&gt;
             TodosCompanion.insert(
           id: id,
           title: title,
           description: description,
           isCompleted: isCompleted,
+          createdAt: createdAt,
         ),
         withReferenceMapper: (p0) =&gt; p0
             .map((e) =&gt; (e.readTable(table), BaseReferences(db, table, e)))

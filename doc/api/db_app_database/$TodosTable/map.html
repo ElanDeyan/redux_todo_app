@@ -97,6 +97,8 @@ TodoTable map(Map&lt;String, dynamic&gt; data, {String? tablePrefix}) {
         .read(DriftSqlType.string, data[&#39;${effectivePrefix}description&#39;]),
     isCompleted: attachedDatabase.typeMapping
         .read(DriftSqlType.bool, data[&#39;${effectivePrefix}is_completed&#39;])!,
+    createdAt: attachedDatabase.typeMapping
+        .read(DriftSqlType.dateTime, data[&#39;${effectivePrefix}created_at&#39;])!,
   );
 }</code></pre>
 </section>

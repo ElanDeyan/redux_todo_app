@@ -224,19 +224,19 @@
 
 </dd>
 
-        <dt id="migration" class="property inherited">
-  <span class="name"><a href="https://pub.dev/documentation/drift/2.20.3/drift/GeneratedDatabase/migration.html">migration</a></span>
+        <dt id="migration" class="property">
+  <span class="name"><a href="../db_app_database/AppDatabase/migration.html">migration</a></span>
   <span class="signature">&#8594; <a href="https://pub.dev/documentation/drift/2.20.3/drift/MigrationStrategy-class.html">MigrationStrategy</a></span>
   
 
 </dt>
-<dd class="inherited">
+<dd>
   Defines the migration strategy that will determine how to deal with an
 increasing <a href="../db_app_database/AppDatabase/schemaVersion.html">schemaVersion</a>. The default value only supports creating the
 database by creating all tables known in this database. When you have
 changes in your schema, you'll need a custom migration strategy to create
 the new tables or change the columns.
-  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+  <div class="features"><span class="feature">no setter</span><span class="feature">override</span></div>
 
 </dd>
 
@@ -284,7 +284,7 @@ the new tables or change the columns.
 </dt>
 <dd>
   Specify the schema version of your database. Whenever you change or add
-tables, you should bump this field and provide a <a href="https://pub.dev/documentation/drift/2.20.3/drift/GeneratedDatabase/migration.html">migration</a> strategy.
+tables, you should bump this field and provide a <a href="../db_app_database/AppDatabase/migration.html">migration</a> strategy.
   <div class="features"><span class="feature">no setter</span><span class="feature">override</span></div>
 
 </dd>

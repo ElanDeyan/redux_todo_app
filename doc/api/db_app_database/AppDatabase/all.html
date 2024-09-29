@@ -88,7 +88,7 @@
   <pre class="language-dart"><code class="language-dart">@override
 Future&lt;List&lt;Todo&gt;&gt; get all =&gt; select(todos)
     .get()
-    .then((rows) =&gt; rows.map(TodoModel.fromTodoTable).toList());</code></pre>
+    .then((rows) =&gt; rows.map(TodoModelExtension.fromTodoTable).toList());</code></pre>
 </section>
 
   </section>

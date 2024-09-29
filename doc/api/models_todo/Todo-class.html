@@ -86,7 +86,8 @@
 
           <dt>Available Extensions</dt>
           <dd><ul class="comma-separated clazz-relationships">
-              <li><a href="../helper_extensions_todo_model/TodoModel.html">TodoModel</a></li>
+              <li><a href="../helper_extensions_todo_model_extension/TodoModelExtension.html">TodoModelExtension</a></li>
+              <li><a href="../helper_extensions_todo_model_widgets_extension/TodoModelWidgetsExtension.html">TodoModelWidgetsExtension</a></li>
           </ul></dd>
 
         
@@ -101,7 +102,7 @@
 
     <dl class="constructor-summary-list">
         <dt id="Todo" class="callable">
-          <span class="name"><a href="../models_todo/Todo/Todo.html">Todo</a></span><span class="signature">({<span class="parameter" id="-param-title"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">title</span>, </span><span class="parameter" id="-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="-param-description"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">description</span>, </span><span class="parameter" id="-param-isCompleted"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isCompleted</span> = <span class="default-value">false</span></span>})</span>
+          <span class="name"><a href="../models_todo/Todo/Todo.html">Todo</a></span><span class="signature">({<span class="parameter" id="-param-title"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">title</span>, </span><span class="parameter" id="-param-createdAtTime"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span> <span class="parameter-name">createdAtTime</span>, </span><span class="parameter" id="-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="-param-description"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">description</span>, </span><span class="parameter" id="-param-isCompleted"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isCompleted</span> = <span class="default-value">false</span></span>})</span>
         </dt>
         <dd>
           <a href="../models_todo/Todo-class.html">Todo</a> with three properties: <a href="../models_todo/Todo/title.html">title</a>, <a href="../models_todo/Todo/description.html">description</a>, and
@@ -116,6 +117,18 @@
       id="instance-properties">
     <h2>Properties</h2>
     <dl class="properties">
+        <dt id="createdAt" class="property">
+  <span class="name"><a href="../models_todo/Todo/createdAt.html">createdAt</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a></span>
+  
+
+</dt>
+<dd>
+  <a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a> of <a href="../models_todo/Todo-class.html">Todo</a>'s creation.
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
         <dt id="description" class="property">
   <span class="name"><a href="../models_todo/Todo/description.html">description</a></span>
   <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span>
@@ -237,7 +250,7 @@ this instance's <a href="../models_todo/Todo/props.html">props</a>.
     <h2>Methods</h2>
     <dl class="callables">
         <dt id="copyWith" class="callable">
-  <span class="name"><a href="../models_todo/Todo/copyWith.html">copyWith</a></span><span class="signature">(<wbr>{<span class="parameter" id="copyWith-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="copyWith-param-title"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">title</span>, </span><span class="parameter" id="copyWith-param-description"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">description</span>, </span><span class="parameter" id="copyWith-param-isCompleted"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">isCompleted</span></span>})
+  <span class="name"><a href="../models_todo/Todo/copyWith.html">copyWith</a></span><span class="signature">(<wbr>{<span class="parameter" id="copyWith-param-id"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">id</span>, </span><span class="parameter" id="copyWith-param-title"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">title</span>, </span><span class="parameter" id="copyWith-param-description"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">description</span>, </span><span class="parameter" id="copyWith-param-isCompleted"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">isCompleted</span>, </span><span class="parameter" id="copyWith-param-createdAt"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/DateTime-class.html">DateTime</a>?</span> <span class="parameter-name">createdAt</span></span>})
     <span class="returntype parameter">&#8594; <a href="../models_todo/Todo-class.html">Todo</a></span>
   </span>
   

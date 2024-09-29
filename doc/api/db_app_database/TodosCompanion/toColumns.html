@@ -106,6 +106,9 @@ Map&lt;String, Expression&gt; toColumns(bool nullToAbsent) {
   if (isCompleted.present) {
     map[&#39;is_completed&#39;] = Variable&lt;bool&gt;(isCompleted.value);
   }
+  if (createdAt.present) {
+    map[&#39;created_at&#39;] = Variable&lt;DateTime&gt;(createdAt.value);
+  }
   return map;
 }</code></pre>
 </section>

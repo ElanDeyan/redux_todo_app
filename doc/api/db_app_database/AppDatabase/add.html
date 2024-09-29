@@ -94,7 +94,9 @@ Future&lt;Todo?&gt; add(Todo todo) =&gt; into(todos)
       ),
       mode: InsertMode.insertOrRollback,
     )
-    .then((row) =&gt; row != null ? TodoModel.fromTodoTable(row) : null);</code></pre>
+    .then(
+      (row) =&gt; row != null ? TodoModelExtension.fromTodoTable(row) : null,
+    );</code></pre>
 </section>
 
 

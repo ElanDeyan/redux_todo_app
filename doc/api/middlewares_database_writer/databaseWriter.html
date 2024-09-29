@@ -90,11 +90,11 @@ dispatches a new action with the data coming from the <a href="../repository_tod
   final database = serviceLocator&lt;TodosRepository&gt;();
 
   switch (action) {
-    case AddTask(:final todo):
+    case AddTodoAction(:final todo):
       await _onAddTask(database, todo, nextDispatcher);
-    case ToggleTaskCompletion(:final todo):
+    case ToggleTodoCompletionAction(:final todo):
       await _onToggleTaskCompletion(database, todo, nextDispatcher);
-    case RemoveTask(:final todo):
+    case RemoveTodoAction(:final todo):
       await _onRemoveTask(database, todo, nextDispatcher);
   }
 }</code></pre>

@@ -112,6 +112,10 @@ VerificationContext validateIntegrity(Insertable&lt;TodoTable&gt; instance,
         isCompleted.isAcceptableOrUnknown(
             data[&#39;is_completed&#39;]!, _isCompletedMeta));
   }
+  if (data.containsKey(&#39;created_at&#39;)) {
+    context.handle(_createdAtMeta,
+        createdAt.isAcceptableOrUnknown(data[&#39;created_at&#39;]!, _createdAtMeta));
+  }
   return context;
 }</code></pre>
 </section>

@@ -99,7 +99,7 @@ Future&lt;Todo?&gt; toggleTodoCompletion(Todo todo) async {
       .singleOrNull;
 
   if (updatedRow != null) {
-    return TodoModel.fromTodoTable(updatedRow);
+    return TodoModelExtension.fromTodoTable(updatedRow);
   }
 
   return null;

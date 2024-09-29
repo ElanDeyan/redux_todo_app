@@ -84,10 +84,10 @@ to generates a new State.</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">AppState todoReducer(AppState previousState, TodoActions action) =&gt;
     switch (action) {
-      AddTask(:final todo) =&gt; _addTaskHandler(previousState, todo),
-      ToggleTaskCompletion(:final todo) =&gt;
+      AddTodoAction(:final todo) =&gt; _addTaskHandler(previousState, todo),
+      ToggleTodoCompletionAction(:final todo) =&gt;
         _toggleTaskCompletionHandler(previousState, todo),
-      RemoveTask(:final todo) =&gt; _removeTaskHandler(previousState, todo),
+      RemoveTodoAction(:final todo) =&gt; _removeTaskHandler(previousState, todo),
     };</code></pre>
 </section>
 
