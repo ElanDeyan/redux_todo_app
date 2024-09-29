@@ -32,5 +32,20 @@ final class Todo extends Equatable {
   bool get isNotCompleted => !isCompleted;
 
   @override
-  List<Object?> get props => [title, description, isCompleted];
+  List<Object?> get props => [id, title, description, isCompleted];
+
+  /// Helper method to create a copy of actual [Todo] with specific changes.
+  Todo copyWith({
+    int? id,
+    String? title,
+    String? description,
+    bool? isCompleted,
+  }) {
+    return Todo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
 }
