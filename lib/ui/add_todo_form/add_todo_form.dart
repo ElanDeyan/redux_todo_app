@@ -100,6 +100,7 @@ class _AddTodoFormState extends State<AddTodoForm> {
           description: isNotBlank(_descriptionEditingController.text)
               ? _descriptionEditingController.text.trim()
               : null,
+          createdAtTime: DateTime.now(),
         ),
       );
     }
