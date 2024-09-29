@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:redux_todo_app/db/connection/connection.dart' as impl;
 import 'package:redux_todo_app/db/todo_table.dart';
+import 'package:redux_todo_app/helper/extensions/todo_table.dart';
 import 'package:redux_todo_app/models/models.dart';
 
 part 'app_database.g.dart';
@@ -15,46 +16,37 @@ final class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  Stream<List<TodoTable>> get all => select(todos).watch();
+  Future<List<TodoTable>> get all => select(todos).get();
 
   /// Add [Todo] to [AppDatabase]
-  Future<TodoTable?> add(Todo todo) {
-    return into(todos).insertReturningOrNull(
-      TodosCompanion(
-        title: Value(todo.title),
-        description: Value(todo.description),
-        isCompleted: Value(todo.isCompleted),
-      ),
-      mode: InsertMode.insertOrRollback,
-    );
-  }
+  Future<TodoTable?> add(Todo todo) => into(todos).insertReturningOrNull(
+        TodosCompanion(
+          title: Value(todo.title),
+          description: Value(todo.description),
+          isCompleted: Value(todo.isCompleted),
+        ),
+        mode: InsertMode.insertOrRollback,
+      );
 
   /// Toggle [Todo.isCompleted] property of [Todo] in [AppDatabase].
   Future<TodoTable?> toggleTaskCompletion(Todo todo) async {
-    final updateStatement = (update(todos)
-      ..whereSamePrimaryKey(
-        TodosCompanion(
-          id: Value(todo.id),
-        ),
-      ));
+    if (todo.id == null) return null;
+
+    final updateStatement =
+        (update(todos)..where((row) => row.id.equals(todo.id!)));
 
     return (await updateStatement.writeReturning(
-      TodosCompanion(
-        id: Value(todo.id),
-        title: Value(todo.title),
-        description: Value(todo.description),
-        isCompleted: Value(!todo.isCompleted),
+      TodoTableExtension.fromTodoModel(
+        todo.copyWith(isCompleted: !todo.isCompleted),
       ),
     ))
         .singleOrNull;
   }
 
   /// Remove [Todo] from [AppDatabase]
-  Future<TodoTable?> remove(Todo todo) {
-    return delete(todos).deleteReturning(
-      TodosCompanion(
-        id: Value(todo.id),
-      ),
-    );
-  }
+  Future<TodoTable?> remove(Todo todo) => delete(todos).deleteReturning(
+        TodosCompanion(
+          id: Value(todo.id),
+        ),
+      );
 }
