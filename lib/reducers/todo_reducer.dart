@@ -18,16 +18,12 @@ AppState _addTaskHandler(AppState previousState, Todo todo) =>
 
 AppState _toggleTaskCompletionHandler(
   AppState previousState,
-  Todo todoToBeToggled,
+  Todo toggledTodo,
 ) {
   return AppState(
     todos: previousState.todos.map((task) {
-      if (task == todoToBeToggled) {
-        return Todo(
-          title: todoToBeToggled.title,
-          description: todoToBeToggled.description,
-          isCompleted: !todoToBeToggled.isCompleted,
-        );
+      if (task.id == toggledTodo.id) {
+        return toggledTodo;
       }
       return task;
     }).toList(),
@@ -37,6 +33,6 @@ AppState _toggleTaskCompletionHandler(
 AppState _removeTaskHandler(AppState previousState, Todo todoToBeRemoved) {
   return AppState(
     todos: [...previousState.todos]
-      ..removeWhere((task) => task == todoToBeRemoved),
+      ..removeWhere((task) => task.id == todoToBeRemoved.id),
   );
 }
