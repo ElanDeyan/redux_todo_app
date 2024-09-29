@@ -10,6 +10,7 @@ extension TodoTableExtension on TodoTable {
       title: todo.title,
       description: todo.description,
       isCompleted: todo.isCompleted,
+      createdAt: todo.createdAt,
     );
   }
 }

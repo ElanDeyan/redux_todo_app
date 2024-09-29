@@ -10,6 +10,7 @@ extension TodoModel on Todo {
       title: table.title,
       description: table.description,
       isCompleted: table.isCompleted,
+      createdAtTime: table.createdAt,
     );
   }
 }
