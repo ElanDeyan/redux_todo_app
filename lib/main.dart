@@ -31,12 +31,12 @@ final class ReduxTodoApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Redux Todo App',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff043b3a)),
           useMaterial3: true,
         ),
         darkTheme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.greenAccent,
+            seedColor: const Color(0xff043b3a),
             brightness: Brightness.dark,
           ),
           useMaterial3: true,
