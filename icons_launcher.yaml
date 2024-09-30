@@ -1,7 +1,0 @@
-icons_launcher:
-  image_path: "assets/checklist_24dp_75FB4C_FILL0_wght400_GRAD0_opsz24.png"
-  platforms:
-    android:
-      enable: true
-    ios:
-      enable: true
