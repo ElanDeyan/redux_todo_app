@@ -57,12 +57,14 @@ class _AddTodoFormState extends State<AddTodoForm> {
             const SizedBox(
               height: 15,
             ),
-            TextFormField(
-              controller: _descriptionEditingController,
-              maxLines: null,
-              decoration: const InputDecoration(
-                labelText: 'Description',
-                border: OutlineInputBorder(),
+            Flexible(
+              child: TextFormField(
+                controller: _descriptionEditingController,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ),
             const SizedBox(
@@ -100,17 +102,5 @@ class _AddTodoFormState extends State<AddTodoForm> {
         ),
       );
     }
-  }
-}
-
-class AddTodoFormTitle extends StatelessWidget {
-  const AddTodoFormTitle() : super(key: const Key('add_todo_form_title'));
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'Add a todo',
-      style: Theme.of(context).textTheme.headlineSmall,
-    );
   }
 }
