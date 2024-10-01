@@ -25,7 +25,7 @@ class AddTodoFloatingActionButton extends StatelessWidget {
       builder: (context, addTodoCallback) => FloatingActionButton.extended(
         onPressed: () => _onPressed(context, addTodoCallback),
         label: const Text('Add todo'),
-        icon: const Icon(Icons.add_outlined),
+        icon: const Icon(Icons.add_task_outlined),
       ),
     );
   }
@@ -36,13 +36,10 @@ class AddTodoFloatingActionButton extends StatelessWidget {
   ) async {
     final result = await showDialog<Todo>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const AddTodoFormTitle(),
-        content: Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
-          child: const AddTodoForm(),
-        ),
+      builder: (context) => const AlertDialog(
+        icon: Icon(Icons.add_task_outlined),
+        title: AddTodoFormTitle(),
+        content: AddTodoForm(),
       ),
     );
 
