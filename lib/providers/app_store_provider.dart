@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-import 'package:redux_todo_app/app_state.dart';
-import 'package:redux_todo_app/middlewares/middlewares.dart';
 import 'package:redux_todo_app/models/todo.dart';
-import 'package:redux_todo_app/reducers/reducers.dart';
 import 'package:redux_todo_app/repository/todos_repository.dart';
 import 'package:redux_todo_app/service_locator.dart';
+import 'package:redux_todo_app/store/store.dart';
 
 /// {@template app_store_provider}
 /// [StoreProvider] for the app.
@@ -47,14 +44,7 @@ class _AppStoreProviderState extends State<AppStoreProvider> {
           (ConnectionState.active || ConnectionState.done, _, true)
               when data != null =>
             StoreProvider(
-              store: Store<AppState>(
-                TypedReducer(todoReducer).call,
-                initialState: AppState(todos: data),
-                middleware: [
-                  TypedMiddleware(databaseWriter).call,
-                  TypedMiddleware(stateTransitionLogger).call,
-                ],
-              ),
+              store: getStore(data),
               child: widget.child,
             ),
           _ => const Scaffold(body: Center(child: CircularProgressIndicator())),
