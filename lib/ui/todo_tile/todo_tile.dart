@@ -70,7 +70,7 @@ class TodoTile extends StatelessWidget {
               children: [
                 Text('id: $id'),
                 Text('Title: $title'),
-                Text('Description: $description'),
+                if(description != null) Text('Description: $description'),
                 Text('Is completed? $isCompleted'),
                 Text('Created at: ${createdAt.toLocal()}'),
               ],
