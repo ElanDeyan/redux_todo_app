@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_todo_app/actions/actions.dart';
-import 'package:redux_todo_app/app_state.dart';
 import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/store/app_state.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile_description.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile_title.dart';
 
@@ -70,7 +70,7 @@ class TodoTile extends StatelessWidget {
               children: [
                 Text('id: $id'),
                 Text('Title: $title'),
-                if(description != null) Text('Description: $description'),
+                if (description != null) Text('Description: $description'),
                 Text('Is completed? $isCompleted'),
                 Text('Created at: ${createdAt.toLocal()}'),
               ],

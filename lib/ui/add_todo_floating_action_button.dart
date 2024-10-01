@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_todo_app/actions/actions.dart';
-import 'package:redux_todo_app/app_state.dart';
 import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/store/app_state.dart';
 import 'package:redux_todo_app/ui/add_todo_form/add_todo_form.dart';
 import 'package:redux_todo_app/ui/add_todo_form/add_todo_form_title.dart';
 

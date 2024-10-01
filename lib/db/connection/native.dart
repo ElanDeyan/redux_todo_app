@@ -14,6 +14,7 @@ Future<File> get _databaseFile async {
 
   return File(path);
 }
+
 /// Returns a [DatabaseConnection] for native platforms:
 /// windows, android, iOS, MacOS, linux.
 DatabaseConnection connect() {

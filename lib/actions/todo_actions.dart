@@ -1,5 +1,5 @@
-import 'package:redux_todo_app/app_state.dart';
 import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/store/app_state.dart';
 
 /// Superclass for app actions
 sealed class TodoActions {
