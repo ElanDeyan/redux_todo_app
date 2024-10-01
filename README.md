@@ -15,6 +15,8 @@ To test if you have flutter installed correctly, open a terminal and type:
 flutter doctor
 ```
 
+If you don't have flutter, follow [these instructions](https://docs.flutter.dev/get-started/install) to install both Flutter and the necessary dependencies to run the project.
+
 If it's okay, [clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository), open the project's folder in your terminal, then type:
 
 ```sh
