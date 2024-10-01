@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_todo_app/helper/extensions/iterable_extension.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile.dart';
 

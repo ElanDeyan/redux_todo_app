@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile.dart';
 
 /// {@template todo_tile_title}

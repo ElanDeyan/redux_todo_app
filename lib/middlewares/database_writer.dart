@@ -1,11 +1,11 @@
 import 'package:redux/redux.dart';
 import 'package:redux_todo_app/actions/todo_actions.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/repository/todos_repository.dart';
 import 'package:redux_todo_app/service_locator.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 
-/// Middleware to write operations in [TodosRepository] and
+/// Middleware to read/write operations in [TodosRepository] and
 /// dispatches a new action with the data coming from the [TodosRepository]
 /// if operation is successful.
 Future<void> databaseWriter(

@@ -1,15 +1,15 @@
 import 'package:redux/redux.dart';
-import 'package:redux_todo_app/middlewares/middlewares.dart';
-import 'package:redux_todo_app/models/models.dart';
-import 'package:redux_todo_app/reducers/reducers.dart';
+import 'package:redux_todo_app/middlewares/database_writer.dart';
+import 'package:redux_todo_app/middlewares/state_transition_logger.dart';
+import 'package:redux_todo_app/reducers/todo_reducer.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 
-/// Returns a [Store] with a provided [initialItems].
-Store<AppState> getStore(List<Todo> initialItems) => Store<AppState>(
-      TypedReducer(todoReducer).call,
-      initialState: AppState(todos: initialItems),
-      middleware: [
-        TypedMiddleware(databaseWriter).call,
-        TypedMiddleware(stateTransitionLogger).call,
-      ],
-    );
+/// App's [Store].
+final store = Store<AppState>(
+  TypedReducer(todoReducer).call,
+  initialState: const AppState(),
+  middleware: [
+    TypedMiddleware(databaseWriter).call,
+    TypedMiddleware(stateTransitionLogger).call,
+  ],
+);

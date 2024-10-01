@@ -1,4 +1,5 @@
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
+import 'package:redux_todo_app/repository/todos_repository.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 
 /// Superclass for app actions
@@ -6,7 +7,11 @@ sealed class TodoActions {
   const TodoActions();
 }
 
+/// {@template fetch_all_todos_action}
+/// Action that represents fetching all [Todo]s in the [TodosRepository].
+/// {@endtemplate}
 final class FetchAllTodosAction extends TodoActions {
+  /// {@macro fetch_all_todos_action}
   const FetchAllTodosAction();
 
   @override
@@ -15,8 +20,14 @@ final class FetchAllTodosAction extends TodoActions {
   }
 }
 
+/// {@template add_many_todos_action}
+/// Action to add a [List] of [Todo]s in [TodosRepository].
+/// {@endtemplate}
 final class AddManyTodosAction extends TodoActions {
+  /// {@macro add_many_todos_action}
   const AddManyTodosAction(this.todos);
+
+  /// [Todo]s to be added.
   final List<Todo> todos;
 
   @override

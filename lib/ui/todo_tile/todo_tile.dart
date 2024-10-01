@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux_todo_app/actions/actions.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/actions/todo_actions.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile_description.dart';
 import 'package:redux_todo_app/ui/todo_tile/todo_tile_title.dart';

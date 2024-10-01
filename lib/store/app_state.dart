@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 
 /// {@template app_store}
 /// App's store in redux architecture.

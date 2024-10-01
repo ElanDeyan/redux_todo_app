@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:redux_todo_app/db/app_database.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 
 /// Drift's table for all [Todo]
 @DataClassName('TodoTable')

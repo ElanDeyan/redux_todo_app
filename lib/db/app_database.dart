@@ -3,7 +3,7 @@ import 'package:redux_todo_app/db/connection/connection.dart' as impl;
 import 'package:redux_todo_app/db/todo_table.dart';
 import 'package:redux_todo_app/helper/extensions/todo_model_extension.dart';
 import 'package:redux_todo_app/helper/extensions/todo_table_extension.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/repository/todos_repository.dart';
 
 part 'app_database.g.dart';

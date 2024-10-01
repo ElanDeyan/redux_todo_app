@@ -1,4 +1,4 @@
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 
 /// Interface for database operations with [Todo].
 abstract interface class TodosRepository {

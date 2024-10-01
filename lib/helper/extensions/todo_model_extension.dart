@@ -1,5 +1,5 @@
 import 'package:redux_todo_app/db/app_database.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 
 /// Extensions for the [Todo] class
 extension TodoModelExtension on Todo {

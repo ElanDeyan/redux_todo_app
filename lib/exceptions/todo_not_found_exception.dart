@@ -1,4 +1,4 @@
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 
 /// {@template todo_not_found_exception}

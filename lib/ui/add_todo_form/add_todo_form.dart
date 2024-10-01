@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiver/strings.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/repository/todos_repository.dart';
 
 /// {@template add_todo_form}

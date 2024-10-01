@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 
 /// Extension to render [Widget]s from the [Todo] model.
 extension TodoModelWidgetsExtension on Todo {

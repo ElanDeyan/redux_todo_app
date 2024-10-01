@@ -1,5 +1,5 @@
-import 'package:redux_todo_app/actions/actions.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/actions/todo_actions.dart';
+import 'package:redux_todo_app/models/todo.dart';
 import 'package:redux_todo_app/store/app_state.dart';
 
 /// Reducer for the [AppState], that takes the

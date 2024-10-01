@@ -1,5 +1,5 @@
 import 'package:redux_todo_app/db/app_database.dart';
-import 'package:redux_todo_app/models/models.dart';
+import 'package:redux_todo_app/models/todo.dart';
 
 /// Helper extensions for [TodoTable].
 extension TodoTableExtension on TodoTable {
