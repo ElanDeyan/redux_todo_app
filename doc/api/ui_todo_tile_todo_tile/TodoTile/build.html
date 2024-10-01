@@ -121,23 +121,33 @@ Widget build(BuildContext context) {
   return StoreBuilder&lt;AppState&gt;(
     builder: (context, store) =&gt; InkWell(
       onLongPress: () =&gt; _displayTodoData(context),
-      child: CheckboxListTile(
-        value: todo.isCompleted,
-        onChanged: (_) =&gt;
-            store.dispatch(ToggleTodoCompletionAction(todo: todo)),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+          borderRadius: const BorderRadius.all(Radius.circular(5)),
         ),
-        tileColor: Theme.of(context).colorScheme.primaryContainer,
-        secondary: IconButton(
-          onPressed: () =&gt; _onDeleteTodo(
-            context,
-            () =&gt; store.dispatch(RemoveTodoAction(todo: todo)),
+        child: CheckboxListTile(
+          value: todo.isCompleted,
+          onChanged: (_) =&gt;
+              store.dispatch(ToggleTodoCompletionAction(todo: todo)),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          icon: const Icon(Icons.delete),
+          secondary: IconButton(
+            color: Theme.of(context).colorScheme.errorContainer,
+            onPressed: () =&gt; _onDeleteTodo(
+              context,
+              () =&gt; store.dispatch(RemoveTodoAction(todo: todo)),
+            ),
+            icon: const Icon(Icons.delete),
+          ),
+          fillColor: WidgetStatePropertyAll(
+            Theme.of(context).colorScheme.secondaryContainer,
+          ),
+          checkColor: Theme.of(context).colorScheme.onSecondaryContainer,
+          title: TodoTileTitle(todo: todo),
+          subtitle: TodoTileDescription(todo: todo),
         ),
-        title: TodoTileTitle(todo: todo),
-        subtitle: TodoTileDescription(todo: todo),
       ),
     ),
   );

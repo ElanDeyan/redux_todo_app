@@ -64,7 +64,7 @@
         
 
 <span class="returntype"><a href="../app_state/AppState-class.html">AppState</a></span>
-<span class="name ">todoReducer</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="todoReducer-param-previousState"><span class="type-annotation"><a href="../app_state/AppState-class.html">AppState</a></span> <span class="parameter-name">previousState</span>, </span></li>
+<span class="name ">todoReducer</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="todoReducer-param-actualState"><span class="type-annotation"><a href="../app_state/AppState-class.html">AppState</a></span> <span class="parameter-name">actualState</span>, </span></li>
 <li><span class="parameter" id="todoReducer-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span></span></li>
 </ol>)
 
@@ -75,19 +75,19 @@
 <section class="desc markdown">
   <p>Reducer for the <a href="../app_state/AppState-class.html">AppState</a>, that takes the
 actual state, a <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a> of <a href="../models_todo/Todo-class.html">Todo</a>s, and an <a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a>
-to generates a new State.</p>
+to returns a new <a href="../app_state/AppState-class.html">AppState</a>.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">AppState todoReducer(AppState previousState, TodoActions action) =&gt;
+  <pre class="language-dart"><code class="language-dart">AppState todoReducer(AppState actualState, TodoActions action) =&gt;
     switch (action) {
-      AddTodoAction(:final todo) =&gt; _addTaskHandler(previousState, todo),
+      AddTodoAction(:final todo) =&gt; _addTaskHandler(actualState, todo),
       ToggleTodoCompletionAction(:final todo) =&gt;
-        _toggleTaskCompletionHandler(previousState, todo),
-      RemoveTodoAction(:final todo) =&gt; _removeTaskHandler(previousState, todo),
+        _toggleTaskCompletionHandler(actualState, todo),
+      RemoveTodoAction(:final todo) =&gt; _removeTaskHandler(actualState, todo),
     };</code></pre>
 </section>
 

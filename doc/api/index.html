@@ -51,18 +51,324 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <h1 id="redux_todo_app">redux_todo_app</h1>
-<p>A new Flutter project.</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>This project is a starting point for a Flutter application.</p>
-<p>A few resources to get you started if this is your first Flutter project:</p>
+  <h1 id="redux-todo-app">Redux Todo app</h1>
+<p>A basic Todo app to practice and apply <a href="https://pub.dev/packages/redux">Redux architecture</a>.</p>
+<h2 id="how-to-run-this-app">How to run this app</h2>
+<p>To run this app, you need to have Flutter installed in your host machine, either Windows, linux, MacOS, or even mobile devices (android and iOS) through an emulator or a real device.</p>
+<div class="markdown-alert markdown-alert-warning">
+<p class="markdown-alert-title">Warning</p>
+<p>This app was developed in a Windows machine and debugging with an adnroid device, and was not tested in linux, MacOS and iOS environments.</p>
+</div>
+<p>To test if you have flutter installed correctly, open a terminal and type:</p>
+<pre class="language-sh"><code class="language-sh">flutter doctor
+</code></pre>
+<p>If it's okay, <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">clone this repository</a>, open the project's folder in your terminal, then type:</p>
+<pre class="language-sh"><code class="language-sh">flutter run --profile
+</code></pre>
+<p>The <code>--profile</code> will run a profile version of the app, which is closer of the release (public) version, so it has better performance.</p>
+<p>Probably you'll be prompted to choose from a set of options (Windows, Chrome, an Android Emulator...). Type the option number acordingly and wait.</p>
+<h2 id="redux-architecture">Redux architecture</h2>
+<p>The redux architecture is based in the following components (considering a UI application with a view):</p>
 <ul>
-<li><a href="https://docs.flutter.dev/get-started/codelab">Lab: Write your first Flutter app</a></li>
-<li><a href="https://docs.flutter.dev/cookbook">Cookbook: Useful Flutter samples</a></li>
+<li>app's <code>State</code></li>
+<li>one <code>Store</code></li>
+<li>one (or more, combined in one) <code>Reducer</code></li>
+<li><code>Action</code>s</li>
+<li><code>Middleware</code>s</li>
+<li><code>View</code>s</li>
 </ul>
-<p>For help getting started with Flutter development, view the
-<a href="https://docs.flutter.dev/">online documentation</a>, which offers tutorials,
-samples, guidance on mobile development, and a full API reference.</p>
+<p>The following image explains better the relationship between these components:</p>
+<p><img src="https://blog.logrocket.com/wp-content/uploads/2021/10/redux-with-middleware.png" alt="Flow chart of redux architecture with a view"></p>
+<p>The <code>Store</code> is like a store which holds the <code>State</code> of your app. Think the "state of your app" like a piece of information(s) that your app needs to display the data accordingly. It's composed by a <code>Reducer</code>, a list of <code>Middleware</code>s and its initial <code>State</code>. We'll see more about them later.</p>
+<p>So, looking from the point of view of the user, when you access the app, the interface (having one or more <code>View</code>s) will present information based on the data present in the <code>State</code>.</p>
+<p>The app will have things, like a button, that, when pressed, will trigger an <code>Action</code>. <code>Action</code>s can be understood like intentions or events. They represent something that you want to do (and is related to your <code>State</code>), like "Hey, increment this counter" or "Add this todo task".</p>
+<p>Alright, so, the <code>View</code>, thorough a button for instance, will trigger an <code>Action</code>, like add a todo task, but... to where was this <code>Action</code> triggered?</p>
+<p>To the <code>Reducer</code>. It knows the actual app's <code>State</code>, receives an <code>Action</code> and returns an updated version of the <code>State</code> accordingly with the received <code>Action</code>. For instance, if we have an empty todo list (our <code>State</code> is an empty List of Todo items), and I trigger an "Add todo" <code>Action</code>, the <code>Reducer</code>  will returns a new version of the <code>State</code>, which contains the added todo, in our example.</p>
+<p>Since Redux works with immutability, you should not modify the <code>State</code> object. Return a new version of it.</p>
+<p>So, every <code>Action</code> is triggered to the <code>Reducer</code>, and then it updates the <code>Store</code>, right?</p>
+<p>Wait! In fact, your dispatched <code>Action</code> will be sent to the <code>Reducer</code>. You're right! But, we have the <code>Middleware</code> component...</p>
+<p><code>Middleware</code>'s role is to intercept any triggered <code>Action</code> and do something with it. Looking to the flowchart above, you can see it lives between the triggered <code>Action</code> and the <code>Reducer</code>. It can, for instance:</p>
+<ul>
+<li>Log the actual <code>State</code> before the <code>Action</code> reach the <code>Reducer</code>, log the triggered <code>Action</code>, dispatch the <code>Action</code>, and then log the <code>State</code> after the <code>Action</code>! That's useful for debugging purposes.</li>
+<li>Write your <code>Action</code> data in a database or request an API.</li>
+<li>Change your <code>Action</code>, like add a todo in a database and, after successful, trigger an "updated" version of this <code>Action</code> with the todo with, for instance, an Id.</li>
+<li>Not dispatch this <code>Action</code>. Yes, the <code>Middleware</code> can simply not dispatch the <code>Action</code>. It'll never reach the <code>Reducer</code>.</li>
+</ul>
+<p><code>Middleware</code> is powerful! He has access to the <code>Store</code>, intercepts <code>Action</code>s before they reach the <code>Reducer</code> and can dispacth (or not) <code>Action</code>s, that can be modified or not!</p>
+<p>Remember that the app needs the <code>State</code> to display the UI accordingly? What if I add the todo, like I said before, but nothing changes the UI? So, that's why the <code>View</code> depends of the <code>State</code>.</p>
+<p>When something change in the <code>State</code>, we can imagine that something like this happended:</p>
+<p>Store: "Hey View, my <code>State</code> has been changed, here's the new value. Please, update yourself."</p>
+<p>View: "Okay, thanks for the advice. Updating!"</p>
+<p>Therefore, our app will follow this cycle, depending on the <code>State</code>, provided by the <code>Store</code>, our app will display whatever it wants, like a todo list. You, the user, may want to do something, so, from the UI, you'll trigger an <code>Action</code>. Yor <code>Action</code> will be sent to the <code>Reducer</code>, but, the <code>Middleware</code> is paying attention and will intercepts your <code>Action</code> before it reaches the <code>Reducer</code>. The <code>Middleware</code> can do whatever it wants with the <code>Action</code>: dispatches, modify then dispatch, not dispatch and so on... If it is dispatched, the <code>Action</code> will finally reach the <code>Reducer</code>, that will updates the <code>Store</code> with a <strong>new</strong> and updated <code>State</code>. Since your app is listening changes in the <code>State</code>, when it happens, the <code>View</code> will be updated accordingly.</p>
+<h2 id="how-this-app-uses-redux">How this app uses Redux</h2>
+<p>Here we'll see an overview about how this app is using the redux architecture with Flutter.</p>
+<p>Inside the <code>lib</code> directory, we have the following structure:</p>
+<pre class="language-txt"><code class="language-txt">/actions
+/db
+/exceptions
+/helper
+/middlewares
+/models
+/providers
+/reducers
+/repository
+/ui
+app_state.dart
+main.dart
+service_locator.dart
+</code></pre>
+<p>We'll focus on the folders and files related to Redux.</p>
+<h3 id="the-todo-model">The Todo model</h3>
+<p>Here's the todo model for this app. (I omitted some things, you can check the full class in the <code>todo.dart</code>)</p>
+<pre class="language-dart"><code class="language-dart">/// [Todo] with three properties: [title], [description], and
+/// [isCompleted].
+final class Todo extends Equatable {
+  const Todo({
+    required this.title,
+    required DateTime createdAtTime,
+    this.id,
+    this.description,
+    this.isCompleted = false,
+  }) : _createdAt = createdAtTime;
+
+  /// Task's id. Can be [Null] when creating, since after added to [AppDatabase]
+  /// he'll receive an id.
+  final int? id;
+
+  /// Title of [Todo]
+  final String title;
+
+  /// A description about this [Todo]
+  final String? description;
+
+  /// Marks a [Todo] as completed or not.
+  final bool isCompleted;
+
+  final DateTime _createdAt;
+
+  /// [DateTime] of [Todo]'s creation.
+  DateTime get createdAt =&gt; _createdAt;
+}
+</code></pre>
+<h3 id="apps-state">App's <code>State</code></h3>
+<p>First, we have our app state defined inside the <code>app_state.dart</code> like the following:</p>
+<pre class="language-dart"><code class="language-dart">final class AppState {
+  const AppState({this.todos = const &lt;Todo&gt;[]});
+
+  /// A list containing all [Todo]'s of the app.
+  final List&lt;Todo&gt; todos;
+
+  @override
+  String toString() {
+    return 'AppState(todos: $todos)';
+  }
+}
+</code></pre>
+<p>Our <code>State</code> will be a dart class containing a list of todos (the todo is defined in the <code>/models</code> folder).</p>
+<h3 id="actions"><code>Action</code>s</h3>
+<p>In this app, we'll have 3 actions, <code>AddTodoAction</code>, <code>ToggleTodoCompletionAction</code> and <code>RemoveTodoAction</code>. They were defined with a sealed class <code>TodoActions</code>, like the example below:</p>
+<pre class="language-dart"><code class="language-dart">// imports...
+
+/// Superclass for app actions
+sealed class TodoActions {
+  const TodoActions();
+}
+
+/// Action for add a [Todo] to the [AppState]
+final class AddTodoAction extends TodoActions {
+  const AddTodoAction({required this.todo});
+
+  /// A [Todo] to be added
+  final Todo todo;
+
+  @override
+  String toString() {
+    return 'Add task: $todo';
+  }
+}
+
+/// Action for toggle [Todo.isCompleted] property.
+final class ToggleTodoCompletionAction extends TodoActions {
+  const ToggleTodoCompletionAction({required this.todo});
+
+  /// A [Todo] where its [Todo.isCompleted] will be negate.
+  final Todo todo;
+
+  @override
+  String toString() {
+    return 'Toggle the isCompleted property of $todo';
+  }
+}
+
+/// Action for remove [Todo] from the [AppState]
+final class RemoveTodoAction extends TodoActions {
+  const RemoveTodoAction({required this.todo});
+
+  /// A [Todo] to be removed.
+  final Todo todo;
+
+  @override
+  String toString() {
+    return 'Remove this todo: $todo';
+  }
+}
+</code></pre>
+<blockquote>
+<p>![TIP]
+It's useful to define your actions with Classes instead of enums when they need some data. If your action itself doesn't require any data, feel free to use enums.</p>
+</blockquote>
+<h3 id="reducer"><code>Reducer</code></h3>
+<p>The <code>Reducer</code> has a contract, it's a function that returns a <code>State</code>, and takes the actual <code>State</code> and the received <code>Action</code>.</p>
+<pre class="language-dart"><code class="language-dart">// imports...
+
+/// Reducer for the [AppState], that takes the
+/// actual state, a [List] of [Todo]s, and an [TodoActions]
+/// to generates a new State.
+AppState todoReducer(AppState actualState, TodoActions action) =&gt;
+    switch (action) {
+      AddTodoAction(:final todo) =&gt; _addTaskHandler(actualState, todo),
+      ToggleTodoCompletionAction(:final todo) =&gt;
+        _toggleTaskCompletionHandler(actualState, todo),
+      RemoveTodoAction(:final todo) =&gt; _removeTaskHandler(actualState, todo),
+    };
+
+// private functions...
+</code></pre>
+<p>The <code>Reducer</code> will take the new <code>State</code> and updates the <code>Store</code> (we'll see it soon).</p>
+<h3 id="middlewares"><code>Middleware</code>s</h3>
+<p>This app has 2 <code>Middleware</code>s:</p>
+<ul>
+<li>A <code>stateTransitionLogger</code>, that logs the <code>State</code> before and after a specific <code>Action</code>.</li>
+<li><code>databaseWriter</code> that does the appropriate operation on the database accordingly the <code>Action</code>.</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">/// Logger function to logs the previous [AppState] state,
+/// the fired [TodoActions], and the resulted [AppState] state.
+void stateTransitionLogger(
+  Store&lt;AppState&gt; store,
+  TodoActions action,
+  NextDispatcher nextDispatcher,
+) {
+  log('Previous state: ${store.state}');
+  log('Fired action: $action', name: 'StateTransitionLogger');
+  nextDispatcher(action);
+  log('Actual state: ${store.state}');
+}
+</code></pre>
+<pre class="language-dart"><code class="language-dart">/// Middleware to write operations in [TodosRepository] and
+/// dispatches a new action with the data coming from the [TodosRepository]
+/// if operation is successful.
+Future&lt;void&gt; databaseWriter(
+  Store&lt;AppState&gt; store,
+  TodoActions action,
+  NextDispatcher nextDispatcher,
+) async {
+  final database = serviceLocator&lt;TodosRepository&gt;();
+
+  switch (action) {
+    case AddTodoAction(:final todo):
+      await _onAddTask(database, todo, nextDispatcher);
+    case ToggleTodoCompletionAction(:final todo):
+      await _onToggleTaskCompletion(database, todo, nextDispatcher);
+    case RemoveTodoAction(:final todo):
+      await _onRemoveTask(database, todo, nextDispatcher);
+  }
+}
+
+// sample callback
+Future&lt;void&gt; _onAddTask(
+  TodosRepository database,
+  Todo todo,
+  NextDispatcher nextDispatcher,
+) async {
+  final result = await database.add(todo);
+  if (result != null) {
+    nextDispatcher(
+      AddTodoAction(
+        todo: result,
+      ),
+    );
+  }
+}
+</code></pre>
+<p>As you can see, the <code>Middleware</code> can access the <code>Store</code>, the triggered <code>Action</code> and has a <code>NextDispatcher</code> callback, that, well, dispatches an <code>Action</code> to the next <code>Middleware</code>, if it exists, and so on until reaches the <code>Reducer</code>.</p>
+<p>In the <code>databaseWriter</code> example, we extract the todo from the <code>Action</code> and performs an operation in the database. For instance, if we try to add a todo, but the db returns <code>null</code>, the <code>Action</code> will not be dispatched, but if is successful, then we'll dispatch the same kind of <code>Action</code>, but with a different todo, in that case, it will receive an int id, that was <code>null</code> before.</p>
+<h3 id="store"><code>Store</code></h3>
+<p>So, now we have all the ingredients to write the <code>Store</code>. I'm instantiating in the <code>app_store_provider</code>, inside a <code>StoreProvider</code> to our flutter app.</p>
+<p>Here's an example of a <code>Store</code> instantiation.</p>
+<pre class="language-dart"><code class="language-dart">final store = Store&lt;AppState&gt;(
+      TypedReducer(todoReducer).call,
+      initialState: const AppState(todos: dataThatCanComeFromTheDb),
+      middleware: [
+        TypedMiddleware(databaseWriter).call,
+        TypedMiddleware(stateTransitionLogger).call,
+      ],
+    );
+</code></pre>
+<p>Here's the <code>AppStoreProvider</code> that, well, provides the <code>Store</code> to its descendants.</p>
+<pre class="language-dart"><code class="language-dart">// app_store_provider.dart
+
+/// [StoreProvider] for the app.
+final class AppStoreProvider extends StatefulWidget {
+  const AppStoreProvider({
+    required this.child,
+    super.key,
+  });
+
+  /// The child [Widget] for the [StoreProvider].
+  final Widget child;
+
+  @override
+  State&lt;AppStoreProvider&gt; createState() =&gt; _AppStoreProviderState();
+}
+
+class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
+  late final Future&lt;List&lt;Todo&gt;&gt; _initialItems;
+  @override
+  void initState() {
+    super.initState();
+    _initialItems = serviceLocator&lt;TodosRepository&gt;().all;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder&lt;List&lt;Todo&gt;&gt;(
+      future: _initialItems,
+      builder: (context, snapshot) {
+        final connectionState = snapshot.connectionState;
+        final hasError = snapshot.hasError;
+        final hasData = snapshot.hasData;
+
+        final data = snapshot.data;
+        return switch ((connectionState, hasError, hasData)) {
+          (ConnectionState.active || ConnectionState.done, _, true)
+              when data != null =&gt;
+            StoreProvider(
+              store: Store&lt;AppState&gt;(
+                TypedReducer(todoReducer).call,
+                initialState: AppState(todos: data),
+                middleware: [
+                  TypedMiddleware(databaseWriter).call,
+                  TypedMiddleware(stateTransitionLogger).call,
+                ],
+              ),
+              child: widget.child,
+            ),
+          _ =&gt; const Scaffold(body: Center(child: CircularProgressIndicator())),
+        };
+      },
+    );
+  }
+}
+</code></pre>
+<h3 id="view">View</h3>
+<p>The app has 3 places that triggers actions:</p>
+<ul>
+<li>A <code>FloatingActionButton</code> that, after the form is valid and the add button is tapped, triggers <code>AddTodoAction</code>.</li>
+<li>A <code>CheckBoxListTile</code> that when tapped triggers <code>ToggleTodoCompletionAction</code>.</li>
+<li>And an <code>IconButton</code> that, after the user confirms that want to remove a todo, triggers <code>RemoveTodoAction</code>.</li>
+</ul>
+<h2 id="final-considerations">Final considerations</h2>
+<p>That's an overview of this app, built with flutter and using the redux architecture. It was an interesting experience and certainly can aggregate to my and you knowledge.</p>
 </section>
 
 
@@ -265,6 +571,13 @@ samples, guidance on mobile development, and a full API reference.</p>
 <dd>
 </dd>
 
+          <dt id="add_todo_form_title">
+  <span class="name"><a href="ui_add_todo_form_add_todo_form_title/ui_add_todo_form_add_todo_form_title-library.html">ui\add_todo_form\add_todo_form_title</a></span> 
+
+</dt>
+<dd>
+</dd>
+
           <dt id="home_page">
   <span class="name"><a href="ui_home_page/ui_home_page-library.html">ui\home_page</a></span> 
 
@@ -349,6 +662,7 @@ samples, guidance on mobile development, and a full API reference.</p>
       <li><a href="service_locator/service_locator-library.html">service_locator</a></li>
       <li><a href="ui_add_todo_floating_action_button/ui_add_todo_floating_action_button-library.html">ui\add_todo_floating_action_button</a></li>
       <li><a href="ui_add_todo_form_add_todo_form/ui_add_todo_form_add_todo_form-library.html">ui\add_todo_form\add_todo_form</a></li>
+      <li><a href="ui_add_todo_form_add_todo_form_title/ui_add_todo_form_add_todo_form_title-library.html">ui\add_todo_form\add_todo_form_title</a></li>
       <li><a href="ui_home_page/ui_home_page-library.html">ui\home_page</a></li>
       <li><a href="ui_todo_tile_todo_tile/ui_todo_tile_todo_tile-library.html">ui\todo_tile\todo_tile</a></li>
       <li><a href="ui_todo_tile_todo_tile_description/ui_todo_tile_todo_tile_description-library.html">ui\todo_tile\todo_tile_description</a></li>

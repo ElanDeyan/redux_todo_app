@@ -123,7 +123,10 @@ Widget build(BuildContext context) {
       leading: const Icon(Icons.science_outlined),
       title: const Text(&#39;Redux todo app&#39;),
     ),
-    body: const TodosListView(),
+    body: ColoredBox(
+      color: Theme.of(context).colorScheme.inverseSurface,
+      child: const TodosListView(),
+    ),
     floatingActionButton: const AddTodoFloatingActionButton(),
   );
 }</code></pre>
