@@ -213,10 +213,10 @@ final class RemoveTodoAction extends TodoActions {
   }
 }
 </code></pre>
-<blockquote>
-<p>![TIP]
-It's useful to define your actions with Classes instead of enums when they need some data. If your action itself doesn't require any data, feel free to use enums.</p>
-</blockquote>
+<div class="markdown-alert markdown-alert-tip">
+<p class="markdown-alert-title">Tip</p>
+<p>It's useful to define your actions with Classes instead of enums when they need some data. If your action itself doesn't require any data, feel free to use enums.</p>
+</div>
 <h3 id="reducer"><code>Reducer</code></h3>
 <p>The <code>Reducer</code> has a contract, it's a function that returns a <code>State</code>, and takes the actual <code>State</code> and the received <code>Action</code>.</p>
 <pre class="language-dart"><code class="language-dart">// imports...
