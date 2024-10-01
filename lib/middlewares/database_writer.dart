@@ -6,7 +6,8 @@ import 'package:redux_todo_app/repository/todos_repository.dart';
 import 'package:redux_todo_app/service_locator.dart';
 
 /// Middleware to write operations in [TodosRepository] and
-/// dispatches a new action with the data coming from the [TodosRepository].
+/// dispatches a new action with the data coming from the [TodosRepository]
+/// if operation is successful.
 Future<void> databaseWriter(
   Store<AppState> store,
   TodoActions action,
