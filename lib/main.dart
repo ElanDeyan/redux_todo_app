@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux_todo_app/actions/todo_actions.dart';
 import 'package:redux_todo_app/db/app_database.dart';
 import 'package:redux_todo_app/providers/app_store_provider.dart';
 import 'package:redux_todo_app/repository/todos_repository.dart';
 import 'package:redux_todo_app/service_locator.dart';
+import 'package:redux_todo_app/store/app_state.dart';
 import 'package:redux_todo_app/ui/home_page.dart';
 
 void main() async {
@@ -42,9 +45,12 @@ final class ReduxTodoApp extends StatelessWidget {
           useMaterial3: true,
           brightness: Brightness.dark,
         ),
-        themeMode: ThemeMode.dark,
-        home: const AppStoreProvider(
-          child: HomePage(),
+        home: AppStoreProvider(
+          child: StoreBuilder<AppState>(
+            onInit: (store) async =>
+                await store.dispatch(const FetchAllTodosAction()),
+            builder: (context, store) => const HomePage(),
+          ),
         ),
       ),
     );

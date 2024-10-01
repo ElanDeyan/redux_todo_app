@@ -13,24 +13,52 @@ Future<void> databaseWriter(
   TodoActions action,
   NextDispatcher nextDispatcher,
 ) async {
-  final database = serviceLocator<TodosRepository>();
+  final repository = serviceLocator<TodosRepository>();
 
   switch (action) {
+    case final FetchAllTodosAction _:
+      await _onFetchAllTodosAction(repository, nextDispatcher);
+    case AddManyTodosAction(:final todos):
+      await _onAddManyTodos(repository, todos, nextDispatcher);
     case AddTodoAction(:final todo):
-      await _onAddTask(database, todo, nextDispatcher);
+      await _onAddTodo(repository, todo, nextDispatcher);
     case ToggleTodoCompletionAction(:final todo):
-      await _onToggleTaskCompletion(database, todo, nextDispatcher);
+      await _onToggleTodoCompletion(repository, todo, nextDispatcher);
     case RemoveTodoAction(:final todo):
-      await _onRemoveTask(database, todo, nextDispatcher);
+      await _onRemoveTodo(repository, todo, nextDispatcher);
   }
 }
 
-Future<void> _onRemoveTask(
-  TodosRepository database,
+Future<void> _onFetchAllTodosAction(
+  TodosRepository repository,
+  NextDispatcher nextDispatcher,
+) async {
+  final todos = await repository.all;
+
+  nextDispatcher(AddManyTodosAction(todos));
+}
+
+Future<void> _onAddManyTodos(
+  TodosRepository repository,
+  List<Todo> todos,
+  NextDispatcher nextDispatcher,
+) async {
+  final todosToDispatch = <Todo>[];
+
+  for (final todo in todos) {
+    final addedTodo = await repository.add(todo);
+    if (addedTodo != null) todosToDispatch.add(addedTodo);
+  }
+
+  nextDispatcher(AddManyTodosAction(todosToDispatch));
+}
+
+Future<void> _onRemoveTodo(
+  TodosRepository repository,
   Todo todo,
   NextDispatcher nextDispatcher,
 ) async {
-  final result = await database.removeTodo(todo);
+  final result = await repository.removeTodo(todo);
   if (result != null) {
     nextDispatcher(
       RemoveTodoAction(
@@ -40,12 +68,12 @@ Future<void> _onRemoveTask(
   }
 }
 
-Future<void> _onToggleTaskCompletion(
-  TodosRepository database,
+Future<void> _onToggleTodoCompletion(
+  TodosRepository repository,
   Todo todo,
   NextDispatcher nextDispatcher,
 ) async {
-  final result = await database.toggleTodoCompletion(todo);
+  final result = await repository.toggleTodoCompletion(todo);
   if (result != null) {
     nextDispatcher(
       ToggleTodoCompletionAction(
@@ -55,12 +83,12 @@ Future<void> _onToggleTaskCompletion(
   }
 }
 
-Future<void> _onAddTask(
-  TodosRepository database,
+Future<void> _onAddTodo(
+  TodosRepository repository,
   Todo todo,
   NextDispatcher nextDispatcher,
 ) async {
-  final result = await database.add(todo);
+  final result = await repository.add(todo);
   if (result != null) {
     nextDispatcher(
       AddTodoAction(

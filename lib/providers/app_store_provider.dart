@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux_todo_app/models/todo.dart';
-import 'package:redux_todo_app/repository/todos_repository.dart';
-import 'package:redux_todo_app/service_locator.dart';
-import 'package:redux_todo_app/store/store.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_todo_app/middlewares/database_writer.dart';
+import 'package:redux_todo_app/middlewares/state_transition_logger.dart';
+import 'package:redux_todo_app/reducers/todo_reducer.dart';
+import 'package:redux_todo_app/store/app_state.dart';
 
 /// {@template app_store_provider}
 /// [StoreProvider] for the app.
 /// {@endtemplate}
-final class AppStoreProvider extends StatefulWidget {
+final class AppStoreProvider extends StatelessWidget {
   /// {@macro app_store_provider}
   const AppStoreProvider({
     required this.child,
@@ -19,37 +20,17 @@ final class AppStoreProvider extends StatefulWidget {
   final Widget child;
 
   @override
-  State<AppStoreProvider> createState() => _AppStoreProviderState();
-}
-
-class _AppStoreProviderState extends State<AppStoreProvider> {
-  late final Future<List<Todo>> _initialItems;
-  @override
-  void initState() {
-    super.initState();
-    _initialItems = serviceLocator<TodosRepository>().all;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Todo>>(
-      future: _initialItems,
-      builder: (context, snapshot) {
-        final connectionState = snapshot.connectionState;
-        final hasError = snapshot.hasError;
-        final hasData = snapshot.hasData;
-
-        final data = snapshot.data;
-        return switch ((connectionState, hasError, hasData)) {
-          (ConnectionState.active || ConnectionState.done, _, true)
-              when data != null =>
-            StoreProvider(
-              store: getStore(data),
-              child: widget.child,
-            ),
-          _ => const Scaffold(body: Center(child: CircularProgressIndicator())),
-        };
-      },
+    return StoreProvider(
+      store: Store<AppState>(
+        TypedReducer(todoReducer).call,
+        initialState: const AppState(),
+        middleware: [
+          TypedMiddleware(databaseWriter).call,
+          TypedMiddleware(stateTransitionLogger).call,
+        ],
+      ),
+      child: child,
     );
   }
 }

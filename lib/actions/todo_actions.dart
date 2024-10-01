@@ -6,6 +6,25 @@ sealed class TodoActions {
   const TodoActions();
 }
 
+final class FetchAllTodosAction extends TodoActions {
+  const FetchAllTodosAction();
+
+  @override
+  String toString() {
+    return "Fetch all to-do's in database";
+  }
+}
+
+final class AddManyTodosAction extends TodoActions {
+  const AddManyTodosAction(this.todos);
+  final List<Todo> todos;
+
+  @override
+  String toString() {
+    return 'Adding many todos: $todos';
+  }
+}
+
 /// {@template add_task_action}
 /// Action for add a [Todo] to the [AppState]
 /// {@endtemplate}
