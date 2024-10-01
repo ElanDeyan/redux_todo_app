@@ -119,13 +119,7 @@ and</li>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
   return StoreProvider(
-    store: Store&lt;AppState&gt;(
-      TypedReducer(todoReducer).call,
-      initialState: const AppState(),
-      middleware: [
-        TypedMiddleware&lt;AppState, TodoActions&gt;(stateTransitionLogger).call,
-      ],
-    ),
+    store: store,
     child: child,
   );
 }</code></pre>

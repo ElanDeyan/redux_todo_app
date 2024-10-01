@@ -120,12 +120,15 @@ and</li>
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      leading: const Icon(Icons.science_outlined),
-      title: const Text(&#39;Redux todo app&#39;),
+      leading: const Icon(Icons.checklist_outlined),
+      title: const Text(&#39;Redux to-do app&#39;),
     ),
     body: ColoredBox(
       color: Theme.of(context).colorScheme.inverseSurface,
-      child: const TodosListView(),
+      child: StoreBuilder&lt;AppState&gt;(
+        onInit: (store) =&gt; store.dispatch(const FetchAllTodosAction()),
+        builder: (context, store) =&gt; const TodosListView(),
+      ),
     ),
     floatingActionButton: const AddTodoFloatingActionButton(),
   );

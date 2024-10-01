@@ -81,7 +81,7 @@
 
       <dl class="callables">
           <dt id="databaseWriter" class="callable">
-  <span class="name"><a href="../middlewares_database_writer/databaseWriter.html">databaseWriter</a></span><span class="signature">(<wbr><span class="parameter" id="databaseWriter-param-store"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/Store-class.html">Store</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../app_state/AppState-class.html">AppState</a></span>&gt;</span></span> <span class="parameter-name">store</span>, </span><span class="parameter" id="databaseWriter-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span>, </span><span class="parameter" id="databaseWriter-param-nextDispatcher"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/NextDispatcher.html">NextDispatcher</a></span> <span class="parameter-name">nextDispatcher</span></span>)
+  <span class="name"><a href="../middlewares_database_writer/databaseWriter.html">databaseWriter</a></span><span class="signature">(<wbr><span class="parameter" id="databaseWriter-param-store"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/Store-class.html">Store</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../store_app_state/AppState-class.html">AppState</a></span>&gt;</span></span> <span class="parameter-name">store</span>, </span><span class="parameter" id="databaseWriter-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span>, </span><span class="parameter" id="databaseWriter-param-nextDispatcher"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/NextDispatcher.html">NextDispatcher</a></span> <span class="parameter-name">nextDispatcher</span></span>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
@@ -96,15 +96,15 @@ if operation is successful.
 </dd>
 
           <dt id="stateTransitionLogger" class="callable">
-  <span class="name"><a href="../middlewares_state_transition_logger/stateTransitionLogger.html">stateTransitionLogger</a></span><span class="signature">(<wbr><span class="parameter" id="stateTransitionLogger-param-store"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/Store-class.html">Store</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../app_state/AppState-class.html">AppState</a></span>&gt;</span></span> <span class="parameter-name">store</span>, </span><span class="parameter" id="stateTransitionLogger-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span>, </span><span class="parameter" id="stateTransitionLogger-param-nextDispatcher"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/NextDispatcher.html">NextDispatcher</a></span> <span class="parameter-name">nextDispatcher</span></span>)
-    <span class="returntype parameter">&#8594; void</span>
+  <span class="name"><a href="../middlewares_state_transition_logger/stateTransitionLogger.html">stateTransitionLogger</a></span><span class="signature">(<wbr><span class="parameter" id="stateTransitionLogger-param-store"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/Store-class.html">Store</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../store_app_state/AppState-class.html">AppState</a></span>&gt;</span></span> <span class="parameter-name">store</span>, </span><span class="parameter" id="stateTransitionLogger-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span>, </span><span class="parameter" id="stateTransitionLogger-param-nextDispatcher"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/NextDispatcher.html">NextDispatcher</a></span> <span class="parameter-name">nextDispatcher</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
   </span>
   
 
 </dt>
 <dd>
-  Logger function to logs the previous <a href="../app_state/AppState-class.html">AppState</a> state,
-the fired <a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a>, and the resulted <a href="../app_state/AppState-class.html">AppState</a> state.
+  Logger function to logs the previous <a href="../store_app_state/AppState-class.html">AppState</a> state,
+the fired <a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a>, and the resulted <a href="../store_app_state/AppState-class.html">AppState</a> state.
   
 
 </dd>
@@ -135,7 +135,6 @@ the fired <a href="../actions_todo_actions/TodoActions-class.html">TodoActions</
       <li class="section-title">Libraries</li>
       <li><a href="../actions_actions/actions_actions-library.html">actions\actions</a></li>
       <li><a href="../actions_todo_actions/actions_todo_actions-library.html">actions\todo_actions</a></li>
-      <li><a href="../app_state/app_state-library.html">app_state</a></li>
       <li><a href="../db_app_database/db_app_database-library.html">db\app_database</a></li>
       <li><a href="../db_connection_connection/db_connection_connection-library.html">db\connection\connection</a></li>
       <li><a href="../db_connection_native/db_connection_native-library.html">db\connection\native</a></li>
@@ -159,6 +158,8 @@ the fired <a href="../actions_todo_actions/TodoActions-class.html">TodoActions</
       <li><a href="../reducers_todo_reducer/reducers_todo_reducer-library.html">reducers\todo_reducer</a></li>
       <li><a href="../repository_todos_repository/repository_todos_repository-library.html">repository\todos_repository</a></li>
       <li><a href="../service_locator/service_locator-library.html">service_locator</a></li>
+      <li><a href="../store_app_state/store_app_state-library.html">store\app_state</a></li>
+      <li><a href="../store_store/store_store-library.html">store\store</a></li>
       <li><a href="../ui_add_todo_floating_action_button/ui_add_todo_floating_action_button-library.html">ui\add_todo_floating_action_button</a></li>
       <li><a href="../ui_add_todo_form_add_todo_form/ui_add_todo_form_add_todo_form-library.html">ui\add_todo_form\add_todo_form</a></li>
       <li><a href="../ui_add_todo_form_add_todo_form_title/ui_add_todo_form_add_todo_form_title-library.html">ui\add_todo_form\add_todo_form_title</a></li>

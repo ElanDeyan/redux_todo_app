@@ -63,8 +63,8 @@
     <section class="multi-line-signature">
         
 
-<span class="returntype"><a href="../app_state/AppState-class.html">AppState</a></span>
-<span class="name ">todoReducer</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="todoReducer-param-actualState"><span class="type-annotation"><a href="../app_state/AppState-class.html">AppState</a></span> <span class="parameter-name">actualState</span>, </span></li>
+<span class="returntype"><a href="../store_app_state/AppState-class.html">AppState</a></span>
+<span class="name ">todoReducer</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="todoReducer-param-actualState"><span class="type-annotation"><a href="../store_app_state/AppState-class.html">AppState</a></span> <span class="parameter-name">actualState</span>, </span></li>
 <li><span class="parameter" id="todoReducer-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span></span></li>
 </ol>)
 
@@ -73,9 +73,9 @@
     </section>
     
 <section class="desc markdown">
-  <p>Reducer for the <a href="../app_state/AppState-class.html">AppState</a>, that takes the
+  <p>Reducer for the <a href="../store_app_state/AppState-class.html">AppState</a>, that takes the
 actual state, a <a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a> of <a href="../models_todo/Todo-class.html">Todo</a>s, and an <a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a>
-to returns a new <a href="../app_state/AppState-class.html">AppState</a>.</p>
+to returns a new <a href="../store_app_state/AppState-class.html">AppState</a>.</p>
 </section>
 
 
@@ -84,7 +84,10 @@ to returns a new <a href="../app_state/AppState-class.html">AppState</a>.</p>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">AppState todoReducer(AppState actualState, TodoActions action) =&gt;
     switch (action) {
+      final FetchAllTodosAction _ =&gt; actualState,
       AddTodoAction(:final todo) =&gt; _addTaskHandler(actualState, todo),
+      AddManyTodosAction(:final todos) =&gt;
+        _addManyTodosHandler(actualState, todos),
       ToggleTodoCompletionAction(:final todo) =&gt;
         _toggleTaskCompletionHandler(actualState, todo),
       RemoveTodoAction(:final todo) =&gt; _removeTaskHandler(actualState, todo),

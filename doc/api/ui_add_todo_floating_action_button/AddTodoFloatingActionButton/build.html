@@ -122,7 +122,7 @@ Widget build(BuildContext context) {
     converter: (store) =&gt; (todo) =&gt; store.dispatch(AddTodoAction(todo: todo)),
     builder: (context, addTodoCallback) =&gt; FloatingActionButton.extended(
       onPressed: () =&gt; _onPressed(context, addTodoCallback),
-      label: const Text(&#39;Add todo&#39;),
+      label: const Text(&#39;Add to-do&#39;),
       icon: const Icon(Icons.add_task_outlined),
     ),
   );

@@ -64,7 +64,7 @@
         
 
 <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
-<span class="name ">databaseWriter</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="databaseWriter-param-store"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/Store-class.html">Store</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../app_state/AppState-class.html">AppState</a></span>&gt;</span></span> <span class="parameter-name">store</span>, </span></li>
+<span class="name ">databaseWriter</span>(<wbr><ol class="parameter-list single-line"> <li><span class="parameter" id="databaseWriter-param-store"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/Store-class.html">Store</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../store_app_state/AppState-class.html">AppState</a></span>&gt;</span></span> <span class="parameter-name">store</span>, </span></li>
 <li><span class="parameter" id="databaseWriter-param-action"><span class="type-annotation"><a href="../actions_todo_actions/TodoActions-class.html">TodoActions</a></span> <span class="parameter-name">action</span>, </span></li>
 <li><span class="parameter" id="databaseWriter-param-nextDispatcher"><span class="type-annotation"><a href="https://pub.dev/documentation/redux/5.0.0/redux/NextDispatcher.html">NextDispatcher</a></span> <span class="parameter-name">nextDispatcher</span></span></li>
 </ol>)
@@ -74,7 +74,7 @@
     </section>
     
 <section class="desc markdown">
-  <p>Middleware to write operations in <a href="../repository_todos_repository/TodosRepository-class.html">TodosRepository</a> and
+  <p>Middleware to read/write operations in <a href="../repository_todos_repository/TodosRepository-class.html">TodosRepository</a> and
 dispatches a new action with the data coming from the <a href="../repository_todos_repository/TodosRepository-class.html">TodosRepository</a>
 if operation is successful.</p>
 </section>
@@ -88,15 +88,19 @@ if operation is successful.</p>
   TodoActions action,
   NextDispatcher nextDispatcher,
 ) async {
-  final database = serviceLocator&lt;TodosRepository&gt;();
+  final repository = serviceLocator&lt;TodosRepository&gt;();
 
   switch (action) {
+    case final FetchAllTodosAction _:
+      await _onFetchAllTodosAction(repository, nextDispatcher);
+    case AddManyTodosAction(:final todos):
+      await _onAddManyTodos(repository, todos, nextDispatcher);
     case AddTodoAction(:final todo):
-      await _onAddTask(database, todo, nextDispatcher);
+      await _onAddTodo(repository, todo, nextDispatcher);
     case ToggleTodoCompletionAction(:final todo):
-      await _onToggleTaskCompletion(database, todo, nextDispatcher);
+      await _onToggleTodoCompletion(repository, todo, nextDispatcher);
     case RemoveTodoAction(:final todo):
-      await _onRemoveTask(database, todo, nextDispatcher);
+      await _onRemoveTodo(repository, todo, nextDispatcher);
   }
 }</code></pre>
 </section>

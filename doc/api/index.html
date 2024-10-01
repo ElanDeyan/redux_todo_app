@@ -51,17 +51,18 @@
   <div id="dartdoc-main-content" class="main-content">
       
 <section class="desc markdown">
-  <h1 id="redux-todo-app">Redux Todo app</h1>
-<p>A basic Todo app to practice and apply <a href="https://pub.dev/packages/redux">Redux architecture</a>.</p>
+  <h1 id="redux-to-do-app">Redux To-do app</h1>
+<p>A basic To-do app to practice and apply <a href="https://pub.dev/packages/redux">Redux architecture</a>.</p>
 <h2 id="how-to-run-this-app">How to run this app</h2>
 <p>To run this app, you need to have Flutter installed in your host machine, either Windows, linux, MacOS, or even mobile devices (android and iOS) through an emulator or a real device.</p>
 <div class="markdown-alert markdown-alert-warning">
 <p class="markdown-alert-title">Warning</p>
-<p>This app was developed in a Windows machine and debugging with an adnroid device, and was not tested in linux, MacOS and iOS environments.</p>
+<p>This app was developed in a Windows machine and debugging with an android device, and was not tested in linux, MacOS and iOS environments.</p>
 </div>
 <p>To test if you have flutter installed correctly, open a terminal and type:</p>
 <pre class="language-sh"><code class="language-sh">flutter doctor
 </code></pre>
+<p>If you don't have flutter, follow <a href="https://docs.flutter.dev/get-started/install">these instructions</a> to install both Flutter and the necessary dependencies to run the project.</p>
 <p>If it's okay, <a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository">clone this repository</a>, open the project's folder in your terminal, then type:</p>
 <pre class="language-sh"><code class="language-sh">flutter run --profile
 </code></pre>
@@ -79,47 +80,47 @@
 </ul>
 <p>The following image explains better the relationship between these components:</p>
 <p><img src="https://blog.logrocket.com/wp-content/uploads/2021/10/redux-with-middleware.png" alt="Flow chart of redux architecture with a view"></p>
-<p>The <code>Store</code> is like a store which holds the <code>State</code> of your app. Think the "state of your app" like a piece of information(s) that your app needs to display the data accordingly. It's composed by a <code>Reducer</code>, a list of <code>Middleware</code>s and its initial <code>State</code>. We'll see more about them later.</p>
+<p>The <code>Store</code> is like a... store... which holds the <code>State</code> of your app. Think the "state of your app" like a piece of information(s) that your app needs to display the data accordingly. It's composed by a <code>Reducer</code>, a list of <code>Middleware</code>s and its initial <code>State</code>. We'll see more about them later.</p>
 <p>So, looking from the point of view of the user, when you access the app, the interface (having one or more <code>View</code>s) will present information based on the data present in the <code>State</code>.</p>
-<p>The app will have things, like a button, that, when pressed, will trigger an <code>Action</code>. <code>Action</code>s can be understood like intentions or events. They represent something that you want to do (and is related to your <code>State</code>), like "Hey, increment this counter" or "Add this todo task".</p>
-<p>Alright, so, the <code>View</code>, thorough a button for instance, will trigger an <code>Action</code>, like add a todo task, but... to where was this <code>Action</code> triggered?</p>
-<p>To the <code>Reducer</code>. It knows the actual app's <code>State</code>, receives an <code>Action</code> and returns an updated version of the <code>State</code> accordingly with the received <code>Action</code>. For instance, if we have an empty todo list (our <code>State</code> is an empty List of Todo items), and I trigger an "Add todo" <code>Action</code>, the <code>Reducer</code>  will returns a new version of the <code>State</code>, which contains the added todo, in our example.</p>
-<p>Since Redux works with immutability, you should not modify the <code>State</code> object. Return a new version of it.</p>
+<p>The app will have things, like a button, that, when pressed, will trigger an <code>Action</code>. <code>Action</code>s can be understood like intentions or events. They represent something that you want to do (and are related to your <code>State</code>), like "Hey, increment this counter" or "Add this to-do task".</p>
+<p>Alright, so, the <code>View</code>, through a button, for instance, will trigger an <code>Action</code>, like add a to-do task, but... where was this <code>Action</code> triggered?</p>
+<p>To the <code>Reducer</code>. It knows the actual app's <code>State</code>, receives an <code>Action</code> and returns a new and updated version of the <code>State</code> accordingly with the received <code>Action</code>. For instance, if we have an empty to-do list (our <code>State</code> is an empty List of to-do items), and I trigger an "Add to-do" <code>Action</code>, the <code>Reducer</code>  will returns a new version of the <code>State</code>, which contains the added to-do, in our example.</p>
+<p>Since Redux works with immutability, you should not modify the <code>State</code> object. Return a new version of it instead.</p>
 <p>So, every <code>Action</code> is triggered to the <code>Reducer</code>, and then it updates the <code>Store</code>, right?</p>
 <p>Wait! In fact, your dispatched <code>Action</code> will be sent to the <code>Reducer</code>. You're right! But, we have the <code>Middleware</code> component...</p>
 <p><code>Middleware</code>'s role is to intercept any triggered <code>Action</code> and do something with it. Looking to the flowchart above, you can see it lives between the triggered <code>Action</code> and the <code>Reducer</code>. It can, for instance:</p>
 <ul>
-<li>Log the actual <code>State</code> before the <code>Action</code> reach the <code>Reducer</code>, log the triggered <code>Action</code>, dispatch the <code>Action</code>, and then log the <code>State</code> after the <code>Action</code>! That's useful for debugging purposes.</li>
+<li>Log the actual <code>State</code> before the <code>Action</code> reaches the <code>Reducer</code>, log the triggered <code>Action</code>, dispatch the <code>Action</code>, and then log the <code>State</code> after that <code>Action</code>! That's useful for debugging purposes.</li>
 <li>Write your <code>Action</code> data in a database or request an API.</li>
-<li>Change your <code>Action</code>, like add a todo in a database and, after successful, trigger an "updated" version of this <code>Action</code> with the todo with, for instance, an Id.</li>
-<li>Not dispatch this <code>Action</code>. Yes, the <code>Middleware</code> can simply not dispatch the <code>Action</code>. It'll never reach the <code>Reducer</code>.</li>
+<li>Change your <code>Action</code>, like receive a <code>FetchTodosAction</code> and then dispatched an <code>AddManyTodosAction</code>.</li>
+<li>Not dispatch this <code>Action</code>. Yes, the <code>Middleware</code> can simply not dispatch the <code>Action</code>. It'll never reaches the <code>Reducer</code>.</li>
 </ul>
 <p><code>Middleware</code> is powerful! He has access to the <code>Store</code>, intercepts <code>Action</code>s before they reach the <code>Reducer</code> and can dispacth (or not) <code>Action</code>s, that can be modified or not!</p>
-<p>Remember that the app needs the <code>State</code> to display the UI accordingly? What if I add the todo, like I said before, but nothing changes the UI? So, that's why the <code>View</code> depends of the <code>State</code>.</p>
-<p>When something change in the <code>State</code>, we can imagine that something like this happended:</p>
+<p>Remember that the app needs the <code>State</code> to display the UI accordingly? What if I add the to-do, like I said before, but nothing changes the UI? That's why the <code>View</code> should depends, and is "listening", the <code>State</code>.</p>
+<p>When something change in the <code>State</code>, we can imagine that something like this happened:</p>
 <p>Store: "Hey View, my <code>State</code> has been changed, here's the new value. Please, update yourself."</p>
 <p>View: "Okay, thanks for the advice. Updating!"</p>
-<p>Therefore, our app will follow this cycle, depending on the <code>State</code>, provided by the <code>Store</code>, our app will display whatever it wants, like a todo list. You, the user, may want to do something, so, from the UI, you'll trigger an <code>Action</code>. Yor <code>Action</code> will be sent to the <code>Reducer</code>, but, the <code>Middleware</code> is paying attention and will intercepts your <code>Action</code> before it reaches the <code>Reducer</code>. The <code>Middleware</code> can do whatever it wants with the <code>Action</code>: dispatches, modify then dispatch, not dispatch and so on... If it is dispatched, the <code>Action</code> will finally reach the <code>Reducer</code>, that will updates the <code>Store</code> with a <strong>new</strong> and updated <code>State</code>. Since your app is listening changes in the <code>State</code>, when it happens, the <code>View</code> will be updated accordingly.</p>
+<p>Therefore, our app will follow this cycle, depending on the <code>State</code>, provided by the <code>Store</code>, our app will display whatever it wants, like a to-do list. We, as users, may want to do something, so, from the UI, we'll trigger an <code>Action</code>. That <code>Action</code> will be sent to the <code>Reducer</code>, but, the <code>Middleware</code> is paying attention and will intercepts your <code>Action</code> before it reaches the <code>Reducer</code>. The <code>Middleware</code> can do whatever it wants with the <code>Action</code>: dispatches, modify then dispatch, not dispatch and so on... If it is dispatched, the dispatched <code>Action</code> will finally reach the <code>Reducer</code>, that will updates the <code>Store</code> with a <strong>new</strong> and updated <code>State</code>. Since your app is "listening" changes in the <code>State</code>, when it happens, the <code>View</code> will be updated accordingly.</p>
 <h2 id="how-this-app-uses-redux">How this app uses Redux</h2>
 <p>Here we'll see an overview about how this app is using the redux architecture with Flutter.</p>
-<p>Inside the <code>lib</code> directory, we have the following structure:</p>
+<p>Inside the <code>lib</code> directory, we have the following structure (I'll omit some folders not directly related to redux):</p>
 <pre class="language-txt"><code class="language-txt">/actions
-/db
-/exceptions
-/helper
+  --- todo_actions.dart
 /middlewares
-/models
+  --- database_writer.dart
+  --- state_transition_logger.dart
 /providers
+  --- app_store_provider.dart // it's related to provide the store to our flutter widgets
 /reducers
-/repository
-/ui
-app_state.dart
+  --- todo_reducer.dart
+/store
+  --- app_state.dart
+  --- store.dart
 main.dart
-service_locator.dart
 </code></pre>
 <p>We'll focus on the folders and files related to Redux.</p>
-<h3 id="the-todo-model">The Todo model</h3>
-<p>Here's the todo model for this app. (I omitted some things, you can check the full class in the <code>todo.dart</code>)</p>
+<h3 id="the-to-do-model">The to-do model</h3>
+<p>Here's the to-do model for this app. (I omitted some things, you can check the full class in the <code>lib/models/todo.dart</code>)</p>
 <pre class="language-dart"><code class="language-dart">/// [Todo] with three properties: [title], [description], and
 /// [isCompleted].
 final class Todo extends Equatable {
@@ -149,14 +150,19 @@ final class Todo extends Equatable {
   /// [DateTime] of [Todo]'s creation.
   DateTime get createdAt =&gt; _createdAt;
 }
+
 </code></pre>
 <h3 id="apps-state">App's <code>State</code></h3>
-<p>First, we have our app state defined inside the <code>app_state.dart</code> like the following:</p>
-<pre class="language-dart"><code class="language-dart">final class AppState {
+<p>First, we have our app state defined inside the <code>lib/store/app_state.dart</code> like the following:</p>
+<pre class="language-dart"><code class="language-dart">/// App's store in redux architecture.
+final class AppState extends Equatable {
   const AppState({this.todos = const &lt;Todo&gt;[]});
 
   /// A list containing all [Todo]'s of the app.
   final List&lt;Todo&gt; todos;
+
+  @override
+  List&lt;Object?&gt; get props =&gt; [todos];
 
   @override
   String toString() {
@@ -164,14 +170,37 @@ final class Todo extends Equatable {
   }
 }
 </code></pre>
-<p>Our <code>State</code> will be a dart class containing a list of todos (the todo is defined in the <code>/models</code> folder).</p>
+<p>Our <code>State</code> will be a dart class containing a list of to-dos (the to-do is defined in the <code>lib/models</code> folder).</p>
 <h3 id="actions"><code>Action</code>s</h3>
-<p>In this app, we'll have 3 actions, <code>AddTodoAction</code>, <code>ToggleTodoCompletionAction</code> and <code>RemoveTodoAction</code>. They were defined with a sealed class <code>TodoActions</code>, like the example below:</p>
+<p>In this app, we'll have 5 actions, <code>AddTodoAction</code>, <code>ToggleTodoCompletionAction</code>, <code>RemoveTodoAction</code>, <code>FetchAllTodosAction</code> and <code>AddManyTodosActions</code>. They were defined with a sealed class <code>TodoActions</code>, like the example below:</p>
 <pre class="language-dart"><code class="language-dart">// imports...
 
 /// Superclass for app actions
 sealed class TodoActions {
   const TodoActions();
+}
+
+/// Action that represents fetching all [Todo]s in the [TodosRepository].
+final class FetchAllTodosAction extends TodoActions {
+  const FetchAllTodosAction();
+
+  @override
+  String toString() {
+    return "Fetch all to-do's in database";
+  }
+}
+
+/// Action to add a [List] of [Todo]s in [TodosRepository].
+final class AddManyTodosAction extends TodoActions {
+  const AddManyTodosAction(this.todos);
+
+  /// [Todo]s to be added.
+  final List&lt;Todo&gt; todos;
+
+  @override
+  String toString() {
+    return 'Adding many todos: $todos';
+  }
 }
 
 /// Action for add a [Todo] to the [AppState]
@@ -215,7 +244,7 @@ final class RemoveTodoAction extends TodoActions {
 </code></pre>
 <div class="markdown-alert markdown-alert-tip">
 <p class="markdown-alert-title">Tip</p>
-<p>It's useful to define your actions with Classes instead of enums when they need some data. If your action itself doesn't require any data, feel free to use enums.</p>
+<p>Define your actions with classes instead of enums when they need some data. If your action itself doesn't require any data, feel free to use enums.</p>
 </div>
 <h3 id="reducer"><code>Reducer</code></h3>
 <p>The <code>Reducer</code> has a contract, it's a function that returns a <code>State</code>, and takes the actual <code>State</code> and the received <code>Action</code>.</p>
@@ -223,18 +252,24 @@ final class RemoveTodoAction extends TodoActions {
 
 /// Reducer for the [AppState], that takes the
 /// actual state, a [List] of [Todo]s, and an [TodoActions]
-/// to generates a new State.
+/// to returns a new [AppState].
 AppState todoReducer(AppState actualState, TodoActions action) =&gt;
     switch (action) {
+      final FetchAllTodosAction _ =&gt; actualState,
       AddTodoAction(:final todo) =&gt; _addTaskHandler(actualState, todo),
+      AddManyTodosAction(:final todos) =&gt;
+        _addManyTodosHandler(actualState, todos),
       ToggleTodoCompletionAction(:final todo) =&gt;
         _toggleTaskCompletionHandler(actualState, todo),
       RemoveTodoAction(:final todo) =&gt; _removeTaskHandler(actualState, todo),
     };
 
+AppState _addTaskHandler(AppState actualState, Todo todo) =&gt;
+    AppState(todos: [...actualState.todos, todo]);
+
 // private functions...
 </code></pre>
-<p>The <code>Reducer</code> will take the new <code>State</code> and updates the <code>Store</code> (we'll see it soon).</p>
+<p>The <code>Reducer</code> will returns a new <code>State</code> and updates the <code>Store</code>.</p>
 <h3 id="middlewares"><code>Middleware</code>s</h3>
 <p>This app has 2 <code>Middleware</code>s:</p>
 <ul>
@@ -254,7 +289,7 @@ void stateTransitionLogger(
   log('Actual state: ${store.state}');
 }
 </code></pre>
-<pre class="language-dart"><code class="language-dart">/// Middleware to write operations in [TodosRepository] and
+<pre class="language-dart"><code class="language-dart">/// Middleware to read/write operations in [TodosRepository] and
 /// dispatches a new action with the data coming from the [TodosRepository]
 /// if operation is successful.
 Future&lt;void&gt; databaseWriter(
@@ -262,53 +297,71 @@ Future&lt;void&gt; databaseWriter(
   TodoActions action,
   NextDispatcher nextDispatcher,
 ) async {
-  final database = serviceLocator&lt;TodosRepository&gt;();
+  final repository = serviceLocator&lt;TodosRepository&gt;();
 
   switch (action) {
+    case final FetchAllTodosAction _:
+      await _onFetchAllTodosAction(repository, nextDispatcher);
+    case AddManyTodosAction(:final todos):
+      await _onAddManyTodos(repository, todos, nextDispatcher);
     case AddTodoAction(:final todo):
-      await _onAddTask(database, todo, nextDispatcher);
+      await _onAddTodo(repository, todo, nextDispatcher);
     case ToggleTodoCompletionAction(:final todo):
-      await _onToggleTaskCompletion(database, todo, nextDispatcher);
+      await _onToggleTodoCompletion(repository, todo, nextDispatcher);
     case RemoveTodoAction(:final todo):
-      await _onRemoveTask(database, todo, nextDispatcher);
+      await _onRemoveTodo(repository, todo, nextDispatcher);
   }
 }
 
-// sample callback
-Future&lt;void&gt; _onAddTask(
-  TodosRepository database,
-  Todo todo,
+Future&lt;void&gt; _onFetchAllTodosAction(
+  TodosRepository repository,
   NextDispatcher nextDispatcher,
 ) async {
-  final result = await database.add(todo);
-  if (result != null) {
-    nextDispatcher(
-      AddTodoAction(
-        todo: result,
-      ),
-    );
+  final todos = await repository.all;
+
+  nextDispatcher(AddManyTodosAction(todos));
+}
+
+Future&lt;void&gt; _onAddManyTodos(
+  TodosRepository repository,
+  List&lt;Todo&gt; todos,
+  NextDispatcher nextDispatcher,
+) async {
+  final todosToDispatch = &lt;Todo&gt;[];
+
+  for (final todo in todos) {
+    final addedTodo = await repository.add(todo);
+    if (addedTodo != null) todosToDispatch.add(addedTodo);
   }
+
+  nextDispatcher(AddManyTodosAction(todosToDispatch));
 }
 </code></pre>
-<p>As you can see, the <code>Middleware</code> can access the <code>Store</code>, the triggered <code>Action</code> and has a <code>NextDispatcher</code> callback, that, well, dispatches an <code>Action</code> to the next <code>Middleware</code>, if it exists, and so on until reaches the <code>Reducer</code>.</p>
-<p>In the <code>databaseWriter</code> example, we extract the todo from the <code>Action</code> and performs an operation in the database. For instance, if we try to add a todo, but the db returns <code>null</code>, the <code>Action</code> will not be dispatched, but if is successful, then we'll dispatch the same kind of <code>Action</code>, but with a different todo, in that case, it will receive an int id, that was <code>null</code> before.</p>
+<p>As you can see, the <code>Middleware</code> can access the <code>Store</code>, the triggered <code>Action</code> and has a <code>NextDispatcher</code> callback, that, well, dispatches an <code>Action</code> to the next <code>Middleware</code>, if it exists, and so on, until reaches the <code>Reducer</code>.</p>
+<p>In the <code>databaseWriter</code> example, we extract the data from the <code>Action</code> (if it has) using pattern matching and performs an operation in the database. For instance, if we try to add a to-do, but the db returns <code>null</code>, the <code>Action</code> will not be dispatched, but if is successful, then we'll dispatch the same kind of <code>Action</code>, but with a different to-do, in that case, it will receive an int id, that was <code>null</code> before.</p>
 <h3 id="store"><code>Store</code></h3>
-<p>So, now we have all the ingredients to write the <code>Store</code>. I'm instantiating in the <code>app_store_provider</code>, inside a <code>StoreProvider</code> to our flutter app.</p>
+<p>So, now we have all the ingredients to write the <code>Store</code>.</p>
 <p>Here's an example of a <code>Store</code> instantiation.</p>
-<pre class="language-dart"><code class="language-dart">final store = Store&lt;AppState&gt;(
-      TypedReducer(todoReducer).call,
-      initialState: const AppState(todos: dataThatCanComeFromTheDb),
-      middleware: [
-        TypedMiddleware(databaseWriter).call,
-        TypedMiddleware(stateTransitionLogger).call,
-      ],
-    );
+<pre class="language-dart"><code class="language-dart">/// App's [Store].
+final store = Store&lt;AppState&gt;(
+  TypedReducer(todoReducer).call,
+  initialState: const AppState(),
+  middleware: [
+    TypedMiddleware(databaseWriter).call,
+    TypedMiddleware(stateTransitionLogger).call,
+  ],
+);
 </code></pre>
 <p>Here's the <code>AppStoreProvider</code> that, well, provides the <code>Store</code> to its descendants.</p>
 <pre class="language-dart"><code class="language-dart">// app_store_provider.dart
+// imports...
+import 'package:redux_todo_app/store/store.dart';
 
+/// {@template app_store_provider}
 /// [StoreProvider] for the app.
-final class AppStoreProvider extends StatefulWidget {
+/// {@endtemplate}
+final class AppStoreProvider extends StatelessWidget {
+  /// {@macro app_store_provider}
   const AppStoreProvider({
     required this.child,
     super.key,
@@ -318,79 +371,80 @@ final class AppStoreProvider extends StatefulWidget {
   final Widget child;
 
   @override
-  State&lt;AppStoreProvider&gt; createState() =&gt; _AppStoreProviderState();
-}
-
-class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
-  late final Future&lt;List&lt;Todo&gt;&gt; _initialItems;
-  @override
-  void initState() {
-    super.initState();
-    _initialItems = serviceLocator&lt;TodosRepository&gt;().all;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder&lt;List&lt;Todo&gt;&gt;(
-      future: _initialItems,
-      builder: (context, snapshot) {
-        final connectionState = snapshot.connectionState;
-        final hasError = snapshot.hasError;
-        final hasData = snapshot.hasData;
-
-        final data = snapshot.data;
-        return switch ((connectionState, hasError, hasData)) {
-          (ConnectionState.active || ConnectionState.done, _, true)
-              when data != null =&gt;
-            StoreProvider(
-              store: Store&lt;AppState&gt;(
-                TypedReducer(todoReducer).call,
-                initialState: AppState(todos: data),
-                middleware: [
-                  TypedMiddleware(databaseWriter).call,
-                  TypedMiddleware(stateTransitionLogger).call,
-                ],
-              ),
-              child: widget.child,
-            ),
-          _ =&gt; const Scaffold(body: Center(child: CircularProgressIndicator())),
-        };
-      },
+    return StoreProvider(
+      store: store,
+      child: child,
     );
   }
 }
 </code></pre>
 <h3 id="view">View</h3>
-<p>The app has 3 places that triggers actions:</p>
+<p>Here are an example of how this app triggers <code>Action</code>s from the UI:</p>
 <ul>
 <li>A <code>FloatingActionButton</code> that, after the form is valid and the add button is tapped, triggers <code>AddTodoAction</code>.</li>
+</ul>
+<pre class="language-dart"><code class="language-dart">/// A [FloatingActionButton] wrapped with a [StoreConnector] to dispatch a
+/// [AddTodoAction] action, when the user not dismisses the bottom
+/// sheet or the [Form] is valid.
+class AddTodoFloatingActionButton extends StatelessWidget {
+  const AddTodoFloatingActionButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreConnector&lt;AppState, void Function(Todo todo)&gt;(
+      converter: (store) =&gt; (todo) =&gt; store.dispatch(AddTodoAction(todo: todo)),
+      builder: (context, addTodoCallback) =&gt; FloatingActionButton.extended(
+        onPressed: () =&gt; _onPressed(context, addTodoCallback), // in the _onPressed mthos we may call the addTodoCallback and dispatch AddTodoAction with a provided Todo
+        label: const Text('Add to-do'),
+        icon: const Icon(Icons.add_task_outlined),
+      ),
+    );
+  }
+
+  // a private method...
+}
+</code></pre>
+<ul>
 <li>A <code>CheckBoxListTile</code> that when tapped triggers <code>ToggleTodoCompletionAction</code>.</li>
 <li>And an <code>IconButton</code> that, after the user confirms that want to remove a todo, triggers <code>RemoveTodoAction</code>.</li>
 </ul>
+<p>An interesting use case is to fetch the <code>Todo</code>s from the database.</p>
+<pre class="language-dart"><code class="language-dart">/// The main page of the application
+final class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: const Icon(Icons.checklist_outlined),
+        title: const Text('Redux to-do app'),
+      ),
+      body: ColoredBox(
+        color: Theme.of(context).colorScheme.inverseSurface,
+        child: StoreBuilder&lt;AppState&gt;(
+          onInit: (store) =&gt; store.dispatch(const FetchAllTodosAction()),
+          builder: (context, store) =&gt; const TodosListView(),
+        ),
+      ),
+      floatingActionButton: const AddTodoFloatingActionButton(),
+    );
+  }
+}
+</code></pre>
 <h2 id="final-considerations">Final considerations</h2>
-<p>That's an overview of this app, built with flutter and using the redux architecture. It was an interesting experience and certainly can aggregate to my and you knowledge.</p>
+<p>That's an overview of this app, built with flutter and using the redux architecture. It was an interesting experience and certainly can aggregate to my and your knowledge.</p>
 </section>
 
 
       <section class="summary">
           <h2>Libraries</h2>
         <dl>
-          <dt id="actions">
-  <span class="name"><a href="actions_actions/actions_actions-library.html">actions\actions</a></span> 
-
-</dt>
-<dd>
-</dd>
-
           <dt id="todo_actions">
   <span class="name"><a href="actions_todo_actions/actions_todo_actions-library.html">actions\todo_actions</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="app_state">
-  <span class="name"><a href="app_state/app_state-library.html">app_state</a></span> 
 
 </dt>
 <dd>
@@ -433,13 +487,6 @@ class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
 
           <dt id="todo_table">
   <span class="name"><a href="db_todo_table/db_todo_table-library.html">db\todo_table</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="exceptions">
-  <span class="name"><a href="exceptions_exceptions/exceptions_exceptions-library.html">exceptions\exceptions</a></span> 
 
 </dt>
 <dd>
@@ -494,22 +541,8 @@ class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
 <dd>
 </dd>
 
-          <dt id="middlewares">
-  <span class="name"><a href="middlewares_middlewares/middlewares_middlewares-library.html">middlewares\middlewares</a></span> 
-
-</dt>
-<dd>
-</dd>
-
           <dt id="state_transition_logger">
   <span class="name"><a href="middlewares_state_transition_logger/middlewares_state_transition_logger-library.html">middlewares\state_transition_logger</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="models">
-  <span class="name"><a href="models_models/models_models-library.html">models\models</a></span> 
 
 </dt>
 <dd>
@@ -524,13 +557,6 @@ class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
 
           <dt id="app_store_provider">
   <span class="name"><a href="providers_app_store_provider/providers_app_store_provider-library.html">providers\app_store_provider</a></span> 
-
-</dt>
-<dd>
-</dd>
-
-          <dt id="reducers">
-  <span class="name"><a href="reducers_reducers/reducers_reducers-library.html">reducers\reducers</a></span> 
 
 </dt>
 <dd>
@@ -552,6 +578,20 @@ class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
 
           <dt id="service_locator">
   <span class="name"><a href="service_locator/service_locator-library.html">service_locator</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="app_state">
+  <span class="name"><a href="store_app_state/store_app_state-library.html">store\app_state</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="store">
+  <span class="name"><a href="store_store/store_store-library.html">store\store</a></span> 
 
 </dt>
 <dd>
@@ -634,16 +674,13 @@ class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
     <h5 class="hidden-xs"><span class="package-name">redux_todo_app</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="actions_actions/actions_actions-library.html">actions\actions</a></li>
       <li><a href="actions_todo_actions/actions_todo_actions-library.html">actions\todo_actions</a></li>
-      <li><a href="app_state/app_state-library.html">app_state</a></li>
       <li><a href="db_app_database/db_app_database-library.html">db\app_database</a></li>
       <li><a href="db_connection_connection/db_connection_connection-library.html">db\connection\connection</a></li>
       <li><a href="db_connection_native/db_connection_native-library.html">db\connection\native</a></li>
       <li><a href="db_connection_unsupported/db_connection_unsupported-library.html">db\connection\unsupported</a></li>
       <li><a href="db_connection_web/db_connection_web-library.html">db\connection\web</a></li>
       <li><a href="db_todo_table/db_todo_table-library.html">db\todo_table</a></li>
-      <li><a href="exceptions_exceptions/exceptions_exceptions-library.html">exceptions\exceptions</a></li>
       <li><a href="exceptions_todo_not_found_exception/exceptions_todo_not_found_exception-library.html">exceptions\todo_not_found_exception</a></li>
       <li><a href="helper_extensions_iterable_extension/helper_extensions_iterable_extension-library.html">helper\extensions\iterable_extension</a></li>
       <li><a href="helper_extensions_todo_model_extension/helper_extensions_todo_model_extension-library.html">helper\extensions\todo_model_extension</a></li>
@@ -651,15 +688,14 @@ class _AppStoreProviderState extends State&lt;AppStoreProvider&gt; {
       <li><a href="helper_extensions_todo_table_extension/helper_extensions_todo_table_extension-library.html">helper\extensions\todo_table_extension</a></li>
       <li><a href="main/main-library.html">main</a></li>
       <li><a href="middlewares_database_writer/middlewares_database_writer-library.html">middlewares\database_writer</a></li>
-      <li><a href="middlewares_middlewares/middlewares_middlewares-library.html">middlewares\middlewares</a></li>
       <li><a href="middlewares_state_transition_logger/middlewares_state_transition_logger-library.html">middlewares\state_transition_logger</a></li>
-      <li><a href="models_models/models_models-library.html">models\models</a></li>
       <li><a href="models_todo/models_todo-library.html">models\todo</a></li>
       <li><a href="providers_app_store_provider/providers_app_store_provider-library.html">providers\app_store_provider</a></li>
-      <li><a href="reducers_reducers/reducers_reducers-library.html">reducers\reducers</a></li>
       <li><a href="reducers_todo_reducer/reducers_todo_reducer-library.html">reducers\todo_reducer</a></li>
       <li><a href="repository_todos_repository/repository_todos_repository-library.html">repository\todos_repository</a></li>
       <li><a href="service_locator/service_locator-library.html">service_locator</a></li>
+      <li><a href="store_app_state/store_app_state-library.html">store\app_state</a></li>
+      <li><a href="store_store/store_store-library.html">store\store</a></li>
       <li><a href="ui_add_todo_floating_action_button/ui_add_todo_floating_action_button-library.html">ui\add_todo_floating_action_button</a></li>
       <li><a href="ui_add_todo_form_add_todo_form/ui_add_todo_form_add_todo_form-library.html">ui\add_todo_form\add_todo_form</a></li>
       <li><a href="ui_add_todo_form_add_todo_form_title/ui_add_todo_form_add_todo_form_title-library.html">ui\add_todo_form\add_todo_form_title</a></li>
