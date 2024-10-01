@@ -11,7 +11,7 @@ class AddTodoFormTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Add a todo',
+      'Add a to-do',
       style: Theme.of(context).textTheme.headlineSmall,
     );
   }

@@ -24,7 +24,7 @@ class AddTodoFloatingActionButton extends StatelessWidget {
       converter: (store) => (todo) => store.dispatch(AddTodoAction(todo: todo)),
       builder: (context, addTodoCallback) => FloatingActionButton.extended(
         onPressed: () => _onPressed(context, addTodoCallback),
-        label: const Text('Add todo'),
+        label: const Text('Add to-do'),
         icon: const Icon(Icons.add_task_outlined),
       ),
     );

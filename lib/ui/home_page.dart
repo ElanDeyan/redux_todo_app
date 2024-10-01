@@ -13,8 +13,8 @@ final class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.science_outlined),
-        title: const Text('Redux todo app'),
+        leading: const Icon(Icons.add_task_outlined),
+        title: const Text('Redux to-do app'),
       ),
       body: ColoredBox(
         color: Theme.of(context).colorScheme.inverseSurface,
