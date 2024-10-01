@@ -4,24 +4,24 @@ import 'package:redux_todo_app/models/models.dart';
 
 /// Reducer for the [AppState], that takes the
 /// actual state, a [List] of [Todo]s, and an [TodoActions]
-/// to generates a new State.
-AppState todoReducer(AppState previousState, TodoActions action) =>
+/// to returns a new [AppState].
+AppState todoReducer(AppState actualState, TodoActions action) =>
     switch (action) {
-      AddTodoAction(:final todo) => _addTaskHandler(previousState, todo),
+      AddTodoAction(:final todo) => _addTaskHandler(actualState, todo),
       ToggleTodoCompletionAction(:final todo) =>
-        _toggleTaskCompletionHandler(previousState, todo),
-      RemoveTodoAction(:final todo) => _removeTaskHandler(previousState, todo),
+        _toggleTaskCompletionHandler(actualState, todo),
+      RemoveTodoAction(:final todo) => _removeTaskHandler(actualState, todo),
     };
 
-AppState _addTaskHandler(AppState previousState, Todo todo) =>
-    AppState(todos: [...previousState.todos, todo]);
+AppState _addTaskHandler(AppState actualState, Todo todo) =>
+    AppState(todos: [...actualState.todos, todo]);
 
 AppState _toggleTaskCompletionHandler(
-  AppState previousState,
+  AppState actualState,
   Todo toggledTodo,
 ) {
   return AppState(
-    todos: previousState.todos.map((task) {
+    todos: actualState.todos.map((task) {
       if (task.id == toggledTodo.id) {
         return toggledTodo;
       }
@@ -30,9 +30,9 @@ AppState _toggleTaskCompletionHandler(
   );
 }
 
-AppState _removeTaskHandler(AppState previousState, Todo todoToBeRemoved) {
+AppState _removeTaskHandler(AppState actualState, Todo todoToBeRemoved) {
   return AppState(
-    todos: [...previousState.todos]
+    todos: [...actualState.todos]
       ..removeWhere((task) => task.id == todoToBeRemoved.id),
   );
 }
