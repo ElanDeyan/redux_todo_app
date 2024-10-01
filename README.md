@@ -207,7 +207,7 @@ final class RemoveTodoAction extends TodoActions {
 }
 ```
 
-> ![TIP]
+> [!TIP]
 > It's useful to define your actions with Classes instead of enums when they need some data. If your action itself doesn't require any data, feel free to use enums.
 
 ### `Reducer`
