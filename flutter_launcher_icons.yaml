@@ -6,8 +6,8 @@ flutter_launcher_icons:
   image_path_android: "assets/checklist_24dp_043B3A_FILL0_wght400_GRAD0_opsz24.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   adaptive_icon_background: "#ffffff"
-  # adaptive_icon_foreground: "assets/icon/foreground.png"
-  # adaptive_icon_monochrome: "assets/icon/monochrome.png"
+  adaptive_icon_foreground: "assets/checklist_24dp_043B3A_FILL0_wght400_GRAD0_opsz24.png"
+  adaptive_icon_monochrome: "assets/checklist_24dp_043B3A_FILL0_wght400_GRAD0_opsz24.png"
 
   ios: true
   image_path_ios: "assets/checklist_24dp_043B3A_FILL0_wght400_GRAD0_opsz24.png"
