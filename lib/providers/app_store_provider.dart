@@ -26,6 +26,7 @@ final class AppStoreProvider extends StatelessWidget {
         TypedReducer(todoReducer).call,
         initialState: const AppState(),
         middleware: [
+          TypedMiddleware(stateTransitionLogger).call,
           TypedMiddleware(databaseWriter).call,
           TypedMiddleware(stateTransitionLogger).call,
         ],
